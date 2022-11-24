@@ -11,7 +11,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="container mx-auto ">
+    <div className="container mx-auto">
       <section className="py-4">
         <Banner></Banner>
       </section>

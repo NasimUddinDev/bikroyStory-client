@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import { MdKeyboardArrowRight } from "react-icons/md";
+import Product from "./Product/Product";
 
 const Category = () => {
   const [products, setProducts] = useState([]);
   const { name } = useLoaderData();
-  console.log(name);
 
   useEffect(() => {
     fetch(`http://localhost:5000/products?category=${name}`)
@@ -21,6 +21,12 @@ const Category = () => {
         </Link>{" "}
         <MdKeyboardArrowRight /> {name} - {products.length}
       </h3>
+
+      <div className="grid grid-cols-3 gap-4 py-5">
+        {products.map((product) => (
+          <Product product={product} key={product._id}></Product>
+        ))}
+      </div>
     </div>
   );
 };
