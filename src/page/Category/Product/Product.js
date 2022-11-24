@@ -85,17 +85,18 @@ const Product = ({ product, user }) => {
                 <span className="text-gray-500">Used:</span> {use} year Used
               </p>
               <p>
-                <span className="text-gray-500">Condition:</span> {use} year
-                Used
+                <span className="text-gray-500">Condition:</span> Like New
               </p>
             </div>
           </div>
         </div>
 
+        {/* Line */}
         <div className="py-2">
           <hr />
         </div>
 
+        {/* Buttoon */}
         <div className="md:flex justify-between items-center">
           <button className="flex items-center gap-1 text-red-600">
             <RiErrorWarningLine /> Report this add

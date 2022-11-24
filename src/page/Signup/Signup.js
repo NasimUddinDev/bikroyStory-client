@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../contextApi/AuthProvider";
 
 const Signup = () => {
-  const { craeteUser } = useContext(AuthContext);
+  const { craeteUser, updateUser } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
 
   const { register, handleSubmit } = useForm();
   const imageBBKey = process.env.REACT_APP_imageBB_key;
@@ -13,6 +14,8 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const handelSignup = (data) => {
+    setLoading(true);
+
     const userPhoto = data.photo[0];
     const formData = new FormData();
     formData.append("image", userPhoto);
@@ -30,24 +33,54 @@ const Signup = () => {
           const email = data.email;
           const password = data.password;
 
-          // const user = {
-          //   userName,
-          //   userPhoto,
-          //   email,
-          //   userSatus: data.userSatus,
-          // };
+          const userInfo = {
+            userName,
+            userPhoto,
+            email,
+            userSatus: data.userSatus,
+          };
 
           craeteUser(email, password)
             .then((result) => {
-              if (result.user.uid) {
+              if (result?.user) {
                 toast("User create Success");
-                navigate("/login");
+                handelUserProfile(userName, userPhoto);
+                setLoading(false);
+
+                // User Info send Database
+                fetch("http://localhost:5000/users", {
+                  method: "POST",
+                  headers: {
+                    "content-type": "application/json",
+                  },
+                  body: JSON.stringify(userInfo),
+                })
+                  .then((res) => {
+                    navigate("/login");
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                  });
               }
             })
             .catch((error) => {
               console.log(error);
             });
         }
+      });
+  };
+
+  // Handel user Profiule
+  const handelUserProfile = (userName, userImg) => {
+    const profile = {
+      displayName: userName,
+      photoURL: userImg,
+    };
+
+    updateUser(profile)
+      .then((result) => {})
+      .catch((error) => {
+        console.error(error);
       });
   };
 
@@ -123,7 +156,7 @@ const Signup = () => {
         </div>
 
         <button type="submit" className="btn">
-          Sign Up
+          {loading ? "Loading.." : "Sign Up"}
         </button>
 
         <div>

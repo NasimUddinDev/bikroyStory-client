@@ -5,6 +5,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import app from "../firebase/firebase.init";
 import { current } from "daisyui/src/colors";
@@ -20,6 +21,12 @@ const AuthProvider = ({ children }) => {
   const craeteUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  // User Name And Photo
+  const updateUser = (profile) => {
+    setLoading(true);
+    return updateProfile(auth.currentUser, profile);
   };
 
   // Login
@@ -45,6 +52,7 @@ const AuthProvider = ({ children }) => {
   const authInfo = {
     user,
     craeteUser,
+    updateUser,
     login,
     logout,
     loading,

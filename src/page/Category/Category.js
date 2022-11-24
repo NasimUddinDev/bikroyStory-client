@@ -60,7 +60,6 @@ const Category = () => {
         </div>
 
         <div className="w-[20%] border rounded-md p-2 bg-white hidden lg:block">
-          
           <p className="border-b p-2">
             <span className="text-gray-500">E</span> email@gmail.com
           </p>
