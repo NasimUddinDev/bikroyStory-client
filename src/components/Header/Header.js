@@ -32,7 +32,7 @@ const Header = () => {
     </>
   );
   return (
-    <header className="bg-base-200">
+    <header className="bg-white">
       <div className="navbar w-[80%] mx-auto">
         <div className="navbar-start">
           <Link
@@ -44,7 +44,7 @@ const Header = () => {
         </div>
 
         <div className="navbar-end">
-          <div className="dropdown md:hidden">
+          <div className="dropdown lg:hidden">
             <label tabIndex={0}>
               <GrMenu className="text-3xl" />
             </label>
@@ -56,7 +56,7 @@ const Header = () => {
             </ul>
           </div>
 
-          <ul className="items-center gap-8 text-[17px] font-semibold hidden md:flex">
+          <ul className="items-center gap-8 text-[17px] font-semibold hidden lg:flex">
             {menu}
           </ul>
         </div>

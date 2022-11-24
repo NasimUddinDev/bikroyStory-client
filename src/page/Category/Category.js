@@ -24,8 +24,8 @@ const Category = () => {
 
   return (
     <div className="w-[80%] mx-auto py-5">
-      <section className="flex gap-4 ">
-        <div className="w-[20%] bg-base-200 rounded-md p-4">
+      <section className="lg:flex gap-4">
+        <div className="w-[20%] bg-white rounded-md p-4 hidden lg:block">
           <h3 className="flex items-center">
             <Link to="/home" className="text-blue-500">
               Home
@@ -49,15 +49,20 @@ const Category = () => {
           </div>
         </div>
 
-        <div className="w-[60%] ">
+        <div className="w-full lg:w-[60%]">
+          {products.map((product) => (
+            <Product product={product} key={product._id} user={user}></Product>
+          ))}
+
           {products.map((product) => (
             <Product product={product} key={product._id} user={user}></Product>
           ))}
         </div>
 
-        <div className="w-[20%] border rounded-md p-2">
-          <p>
-            <span className="text-gray-500">For sale by</span> Nasim
+        <div className="w-[20%] border rounded-md p-2 bg-white hidden lg:block">
+          
+          <p className="border-b p-2">
+            <span className="text-gray-500">E</span> email@gmail.com
           </p>
         </div>
       </section>

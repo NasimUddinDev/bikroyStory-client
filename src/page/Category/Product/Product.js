@@ -43,14 +43,14 @@ const Product = ({ product, user }) => {
     form.reset();
   };
   return (
-    <div className="border p-4 flex gap-4 mb-4 rounded-md">
-      <div className="w-[34%]">
+    <div className="border p-4 md:flex gap-4 mb-4 rounded-md bg-white">
+      <div className="w-[60%] md:w-[34%] mx-auto mb-4 md:mb-0">
         <img src={picture} alt="Shoes" className="w-full h-48" />
       </div>
 
-      <div className="w-[66%]">
+      <div className="w-[80%] mx-auto md:w-[66%]">
         <div>
-          <div className="flex justify-between">
+          <div className="md:flex justify-between">
             <div>
               <h2 className="card-title text-2xl text-teal-600">
                 {productName}
@@ -59,6 +59,9 @@ const Product = ({ product, user }) => {
               <p>
                 <span className="text-gray-500">Location:</span> {location}
               </p>
+              <p>
+                <span className="text-gray-500">For sale by</span> Nasim
+              </p>
             </div>
 
             <p>
@@ -66,11 +69,10 @@ const Product = ({ product, user }) => {
             </p>
           </div>
 
-          <div className="flex items-center justify-between mt-2">
+          <div className="md:flex items-center justify-between mt-2">
             <div>
-              <h2 className="text-lg text-teal-600">
-                <span className="text-gray-500">Sell Price:</span> {sellPrice}{" "}
-                TK
+              <h2 className="text-lg text-teal-600 font-semibold">
+                <span className="text-gray-500">Price</span> {sellPrice} TK
               </h2>
               <h2>
                 <span className="text-gray-500">Original Price:</span>{" "}
@@ -94,8 +96,8 @@ const Product = ({ product, user }) => {
           <hr />
         </div>
 
-        <div className="flex justify-between items-center">
-          <button className="flex items-center gap-1 text-red-600 border border-red-600 p-2 rounded-md">
+        <div className="md:flex justify-between items-center">
+          <button className="flex items-center gap-1 text-red-600">
             <RiErrorWarningLine /> Report this add
           </button>
 
