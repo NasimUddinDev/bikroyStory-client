@@ -2,7 +2,7 @@ import React from "react";
 import { RiErrorWarningLine } from "react-icons/ri";
 import { toast } from "react-toastify";
 
-const Product = ({ product }) => {
+const Product = ({ product, user }) => {
   const {
     product: productName,
     picture,
@@ -18,12 +18,15 @@ const Product = ({ product }) => {
     e.preventDefault();
 
     const form = e.target;
+
     const buyerName = form.buyerName.value;
     const buyerEmail = form.buyerEmail.value;
     const number = form.number.value;
     const meetLocation = form.location.value;
 
     const bookInfo = {
+      userName: user.displayName,
+      userEmail: user.email,
       productName,
       price: sellPrice,
       buyerName,
@@ -40,93 +43,121 @@ const Product = ({ product }) => {
     form.reset();
   };
   return (
-    <div className="card bg-base-200 shadow-xl p-6">
-      <div className="mb-4">
-        <h2 className="card-title text-2xl">{productName}</h2>
-        <p className="text-gray-600 text-[15px]">
-          Post on {time} , {location}
-        </p>
+    <div className="border p-4 flex gap-4 mb-4 rounded-md">
+      <div className="w-[34%]">
+        <img src={picture} alt="Shoes" className="w-full h-48" />
       </div>
-      <figure>
-        <img src={picture} alt="Shoes" className="w-96 h-80" />
-      </figure>
-      <div className="mt-6 ">
-        <div>
-          <h3>Seller: Nasim</h3>
-        </div>
-        <h2 className="card-title text-green-700 text-2xl">
-          Price: {sellPrice} TK
-        </h2>
-        <h2>Original Price: {originalPrice} TK</h2>
 
-        <div className="text-gray-600">
-          <p className="mt-4 ">Condition: {use} year Used</p>
-          <p>Brand: {category}</p>
+      <div className="w-[66%]">
+        <div>
+          <div className="flex justify-between">
+            <div>
+              <h2 className="card-title text-2xl text-teal-600">
+                {productName}
+              </h2>
+              <p className="text-gray-600">Post on {time}</p>
+              <p>
+                <span className="text-gray-500">Location:</span> {location}
+              </p>
+            </div>
+
+            <p>
+              <span className="text-gray-500">Brand:</span> {category}
+            </p>
+          </div>
+
+          <div className="flex items-center justify-between mt-2">
+            <div>
+              <h2 className="text-lg text-teal-600">
+                <span className="text-gray-500">Sell Price:</span> {sellPrice}{" "}
+                TK
+              </h2>
+              <h2>
+                <span className="text-gray-500">Original Price:</span>{" "}
+                {originalPrice} TK
+              </h2>
+            </div>
+
+            <div>
+              <p>
+                <span className="text-gray-500">Used:</span> {use} year Used
+              </p>
+              <p>
+                <span className="text-gray-500">Condition:</span> {use} year
+                Used
+              </p>
+            </div>
+          </div>
         </div>
-        <div className="card-actions justify-end items-center gap-6 mt-6">
-          <button className="flex items-center gap-1 text-red-600">
+
+        <div className="py-2">
+          <hr />
+        </div>
+
+        <div className="flex justify-between items-center">
+          <button className="flex items-center gap-1 text-red-600 border border-red-600 p-2 rounded-md">
             <RiErrorWarningLine /> Report this add
           </button>
 
           {/* The button to open modal */}
-          <label htmlFor="my-modal-3" className="btn btn-primary">
+          <label htmlFor="my-modal-3" className="btn btn-accent">
             Book Now
           </label>
+        </div>
 
-          {/* Put this part before </body> tag */}
-          <input type="checkbox" id="my-modal-3" className="modal-toggle" />
-          <div className="modal text-center">
-            <div className="modal-box relative">
-              <label
-                htmlFor="my-modal-3"
-                className="btn btn-sm btn-circle absolute right-2 top-2"
-              >
-                ✕
-              </label>
-              <div>
-                <h3 className="text-xl font-bold">{productName}</h3>
-                <p className="py-2">Price: {sellPrice} Tk</p>
-              </div>
-              <form onSubmit={handelBookForm}>
-                <input
-                  type="text"
-                  name="buyerName"
-                  placeholder="Type here"
-                  className="input input-bordered w-full max-w-xs mb-2"
-                  defaultValue={"User Name"}
-                  readOnly
-                />
-                <input
-                  type="email"
-                  name="buyerEmail"
-                  placeholder="Type here"
-                  className="input input-bordered w-full max-w-xs mb-2"
-                  defaultValue={"User Email"}
-                  readOnly
-                />
-                <input
-                  type="number"
-                  name="number"
-                  placeholder="Contact Number"
-                  className="input input-bordered w-full max-w-xs mb-2"
-                  required
-                />
-
-                <input
-                  type="text"
-                  name="location"
-                  placeholder="meeting location"
-                  className="input input-bordered w-full max-w-xs mb-2"
-                  required
-                />
-
-                <div>
-                  <button type="submit" className="btn btn-primary">
-                    Confirm
-                  </button>
-                </div>
-              </form>
+        {/* Put this part before </body> tag */}
+        <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+        <div className="modal text-center">
+          <div className="modal-box relative">
+            <label
+              htmlFor="my-modal-3"
+              className="btn btn-sm btn-circle absolute right-2 top-2"
+            >
+              ✕
+            </label>
+            <div>
+              <h3 className="text-xl font-bold">{productName}</h3>
+              <p className="py-2">Price: {sellPrice} Tk</p>
             </div>
+            <form onSubmit={handelBookForm}>
+              <input
+                type="text"
+                name="buyerName"
+                placeholder="Type here"
+                className="input input-bordered w-full max-w-xs mb-2"
+                defaultValue={user?.displayName}
+                readOnly
+              />
+              <input
+                type="email"
+                name="buyerEmail"
+                placeholder="Type here"
+                className="input input-bordered w-full max-w-xs mb-2"
+                defaultValue={user?.email}
+                readOnly
+              />
+              <input
+                type="number"
+                name="number"
+                placeholder="Contact Number"
+                className="input input-bordered w-full max-w-xs mb-2"
+                required
+              />
+
+              <input
+                type="text"
+                name="location"
+                placeholder="meeting location"
+                className="input input-bordered w-full max-w-xs mb-2"
+                required
+              />
+
+              <div>
+                <button type="submit" className="btn btn-primary">
+                  Confirm
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

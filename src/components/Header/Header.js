@@ -33,11 +33,11 @@ const Header = () => {
   );
   return (
     <header className="bg-base-200">
-      <div className="navbar  container mx-auto">
+      <div className="navbar w-[80%] mx-auto">
         <div className="navbar-start">
           <Link
             to="/home"
-            className="text-2xl md:text-3xl font-bold text-rose-500 hover:text-red-600 duration-200"
+            className="text-2xl md:text-3xl font-bold text-teal-700 hover:text-teal-600 duration-200"
           >
             BikroyStore
           </Link>
