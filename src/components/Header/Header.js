@@ -11,10 +11,13 @@ const Header = () => {
         <Link to="/home">Home</Link>
       </li>
       <li>
+        <Link to="/blog">Blog</Link>
+      </li>
+      <li>
         {user ? (
           <>
             <Link to="/dashboard" className="mr-8">
-              Dashboard
+              My orders
             </Link>
             <button onClick={logout} className="btn">
               Log Out
