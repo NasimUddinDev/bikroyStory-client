@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { AuthContext } from "../../contextApi/AuthProvider";
 
 const Signup = () => {
@@ -8,6 +9,8 @@ const Signup = () => {
 
   const { register, handleSubmit } = useForm();
   const imageBBKey = process.env.REACT_APP_imageBB_key;
+
+  const navigate = useNavigate();
 
   const handelSignup = (data) => {
     const userPhoto = data.photo[0];
@@ -36,7 +39,10 @@ const Signup = () => {
 
           craeteUser(email, password)
             .then((result) => {
-              console.log(result.user);
+              if (result.user.uid) {
+                toast("User create Success");
+                navigate("/login");
+              }
             })
             .catch((error) => {
               console.log(error);
@@ -58,9 +64,10 @@ const Signup = () => {
           </label>
           <input
             type="text"
-            {...register("name")}
+            {...register("name", {})}
             placeholder="Full name"
             className="input input-bordered"
+            required
           />
         </div>
 
@@ -72,6 +79,7 @@ const Signup = () => {
             {...register("photo")}
             type="file"
             className="file-input w-full input-bordered"
+            required
           />
         </div>
 
@@ -84,6 +92,7 @@ const Signup = () => {
             {...register("email")}
             placeholder="Email"
             className="input input-bordered"
+            required
           />
         </div>
 
@@ -96,6 +105,7 @@ const Signup = () => {
             {...register("password")}
             placeholder="Password"
             className="input input-bordered"
+            required
           />
         </div>
 
@@ -112,8 +122,6 @@ const Signup = () => {
           </select>
         </div>
 
-        {/* <input type="submit" className="btn " />
-         */}
         <button type="submit" className="btn">
           Sign Up
         </button>

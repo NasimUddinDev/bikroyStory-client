@@ -1,20 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { GrMenu } from "react-icons/gr";
+import { AuthContext } from "../../contextApi/AuthProvider";
 
 const Header = () => {
+  const { user, logout } = useContext(AuthContext);
   const menu = (
     <>
       <li>
-        <Link>Home</Link>
+        <Link to="/home">Home</Link>
       </li>
       <li>
-        <Link>Portfolio</Link>
-      </li>
-      <li>
-        <Link to="/login" className="btn">
-          Log In
-        </Link>
+        {user ? (
+          <>
+            <Link to="/dashboard" className="mr-8">
+              Dashboard
+            </Link>
+            <button onClick={logout} className="btn">
+              Log Out
+            </button>
+          </>
+        ) : (
+          <Link to="/login" className="btn">
+            Log In
+          </Link>
+        )}
       </li>
     </>
   );

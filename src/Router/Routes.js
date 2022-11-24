@@ -3,6 +3,7 @@ import Main from "../Layout/Main/Main";
 import Category from "../page/Category/Category";
 import Home from "../page/Home/Home/Home";
 import Login from "../page/Login/Login";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import Signup from "./../page/Signup/Signup";
 
 const router = createBrowserRouter([
@@ -20,7 +21,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/categorys/:id",
-        element: <Category></Category>,
+        element: (
+          <PrivateRoute>
+            <Category></Category>
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
           fetch(`http://localhost:5000/categorys/${params.id}`),
       },

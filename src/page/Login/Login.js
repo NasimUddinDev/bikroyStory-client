@@ -1,20 +1,47 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { AuthContext } from "../../contextApi/AuthProvider";
 
 const Login = () => {
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/home";
+
+  const handelLogin = (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    login(email, password)
+      .then((result) => {
+        if (result.user.uid && result.user.email) {
+          toast("Login Success");
+          form.reset();
+          navigate(from, { replace: true });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className="hero py-5">
       <div className="w-[80%] md:w-[50%] lg:w-[35%]">
         <h2 className="text-3xl font-bold text-center mb-3">Login Now!</h2>
 
         <div className="card w-full shadow-2xl bg-base-100">
-          <form className="card-body">
+          <form onSubmit={handelLogin} className="card-body">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
               </label>
               <input
                 type="text"
+                name="email"
                 placeholder="email"
                 className="input input-bordered"
               />
@@ -24,7 +51,8 @@ const Login = () => {
                 <span className="label-text">Password</span>
               </label>
               <input
-                type="text"
+                type="password"
+                name="password"
                 placeholder="password"
                 className="input input-bordered"
               />
