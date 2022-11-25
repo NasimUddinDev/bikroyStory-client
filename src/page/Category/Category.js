@@ -27,7 +27,7 @@ const Category = () => {
   return (
     <div className="w-[80%] mx-auto py-5">
       <section className="lg:flex gap-4">
-        <div className="w-[25%] bg-white rounded-md p-4 hidden lg:block">
+        <div className="w-[25%] bg-base-200 rounded-md p-4 hidden lg:block">
           <h3 className="flex items-center">
             <Link to="/home" className="text-blue-500">
               Home

@@ -2,9 +2,11 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../../contextApi/AuthProvider";
+import { useLoaderData } from "react-router-dom";
 
 const AddProduct = () => {
   const { user } = useContext(AuthContext);
+  const categorys = useLoaderData();
 
   const now = new Date();
 
@@ -179,9 +181,11 @@ const AddProduct = () => {
               {...register("category", { required: true })}
               className="select select-bordered w-full "
             >
-              <option defaultValue="HP">HP</option>
-              <option defaultValue="APPLE">APPLE</option>
-              <option defaultValue="WALTON">WALTON</option>
+              {categorys.map((category) => (
+                <option key={category._id} defaultValue={category.name}>
+                  {category.name}
+                </option>
+              ))}
             </select>
           </div>
 

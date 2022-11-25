@@ -17,7 +17,7 @@ const Product = ({ product, setProduct }) => {
   } = product;
 
   return (
-    <div className="border p-2 md:flex gap-4 mb-4 rounded-md bg-white">
+    <div className="border p-2 md:flex gap-4 mb-4 rounded-md">
       <div className="w-[80%] md:w-[40%] mx-auto mb-4 md:mb-0">
         <img src={picture} alt="Shoes" className="w-full h-52" />
       </div>
@@ -25,7 +25,7 @@ const Product = ({ product, setProduct }) => {
       <div className="w-[80%] mx-auto md:w-[60%]">
         <div>
           <div className="md:flex justify-between">
-            <div>
+            <div className="w-[74%]">
               <h2 className="card-title text-2xl text-teal-600">
                 {productName}
               </h2>
@@ -40,9 +40,9 @@ const Product = ({ product, setProduct }) => {
               </p>
             </div>
 
-            <p>
+            <div className="w-[26%]">
               <span className="text-gray-500">Brand:</span> {category}
-            </p>
+            </div>
           </div>
 
           <div className="md:flex items-center justify-between mt-2">
