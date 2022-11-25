@@ -1,4 +1,3 @@
-import { data } from "autoprefixer";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,9 +8,11 @@ import useToken from "../../Hooks/useToken";
 const Signup = () => {
   const { craeteUser, updateUser } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
-  const { register, handleSubmit } = useForm();
-  const imageBBKey = process.env.REACT_APP_imageBB_key;
   const navigate = useNavigate();
+
+  const { register, handleSubmit } = useForm();
+
+  const imageBBKey = process.env.REACT_APP_imageBB_key;
 
   const [newUser, setNewUser] = useState("");
   const [token] = useToken(newUser);
@@ -156,8 +157,8 @@ const Signup = () => {
             {...register("userRole", { required: true })}
             className="select select-bordered w-full "
           >
-            <option value="Buyer">Buyer</option>
-            <option value="Seller">Seller</option>
+            <option defaultValue="Buyer">Buyer</option>
+            <option defaultValue="Seller">Seller</option>
           </select>
         </div>
 

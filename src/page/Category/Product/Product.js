@@ -3,14 +3,17 @@ import { RiErrorWarningLine } from "react-icons/ri";
 
 const Product = ({ product, setProduct }) => {
   const {
-    product: productName,
+    productName,
     picture,
     category,
     time,
+    date,
     location,
-    originalPrice,
+    orginalPrice,
     sellPrice,
-    use,
+    used,
+    condition,
+    seller,
   } = product;
 
   return (
@@ -26,12 +29,14 @@ const Product = ({ product, setProduct }) => {
               <h2 className="card-title text-2xl text-teal-600">
                 {productName}
               </h2>
-              <p className="text-gray-600">Post on {time}</p>
+              <small className="text-gray-600">
+                Post on {time}, {date}
+              </small>
               <p>
                 <span className="text-gray-500">Location:</span> {location}
               </p>
               <p>
-                <span className="text-gray-500">For sale by</span> Nasim
+                <span className="text-gray-500">For sale by</span> {seller}
               </p>
             </div>
 
@@ -47,16 +52,16 @@ const Product = ({ product, setProduct }) => {
               </h2>
               <h2>
                 <span className="text-gray-500">Original Price:</span>{" "}
-                {originalPrice} TK
+                {orginalPrice} TK
               </h2>
             </div>
 
             <div>
               <p>
-                <span className="text-gray-500">Used:</span> {use} year Used
+                <span className="text-gray-500">Used:</span> {used} year
               </p>
               <p>
-                <span className="text-gray-500">Condition:</span> Like New
+                <span className="text-gray-500">Condition:</span> {condition}
               </p>
             </div>
           </div>

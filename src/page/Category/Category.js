@@ -25,9 +25,9 @@ const Category = () => {
   }, [name]);
 
   return (
-    <div className="w-[80%] mx-auto py-5">
+    <div className="w-[70%] mx-auto py-5">
       <section className="lg:flex gap-4">
-        <div className="w-[20%] bg-white rounded-md p-4 hidden lg:block">
+        <div className="w-[25%] bg-white rounded-md p-4 hidden lg:block">
           <h3 className="flex items-center">
             <Link to="/home" className="text-blue-500">
               Home
@@ -51,7 +51,7 @@ const Category = () => {
           </div>
         </div>
 
-        <div className="w-full lg:w-[60%]">
+        <div className="w-full lg:w-[75%]">
           {products.map((product) => (
             <Product
               product={product}
@@ -67,12 +67,6 @@ const Category = () => {
               user={user}
             ></BookingModal>
           )}
-        </div>
-
-        <div className="w-[20%] border rounded-md p-2 bg-white hidden lg:block">
-          <p className="border-b p-2">
-            <span className="text-gray-500">E</span> email@gmail.com
-          </p>
         </div>
       </section>
     </div>

@@ -1,11 +1,8 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const BookingModal = ({ product, user, setProduct }) => {
-  const { _id, product: productName, sellPrice } = product;
-
-  const navigate = useNavigate();
+  const { _id, productName, sellPrice } = product;
 
   const handelBookForm = (e) => {
     e.preventDefault();
@@ -43,7 +40,6 @@ const BookingModal = ({ product, user, setProduct }) => {
           });
           form.reset();
           setProduct(null);
-          //   navigate("/mybooking");
         }
       });
   };

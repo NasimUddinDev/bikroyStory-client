@@ -15,7 +15,7 @@ const DashboardLayout = () => {
       <Header></Header>
       <div className="drawer drawer-mobile gap-4 py-5 w-[80%] mx-auto">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content bg-white p-5">
+        <div className="drawer-content bg-white">
           <Outlet></Outlet>
         </div>
 
