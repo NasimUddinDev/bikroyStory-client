@@ -1,9 +1,7 @@
 import React from "react";
 import { RiErrorWarningLine } from "react-icons/ri";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 
-const Product = ({ product, user }) => {
+const Product = ({ product, setProduct }) => {
   const {
     product: productName,
     picture,
@@ -15,39 +13,6 @@ const Product = ({ product, user }) => {
     use,
   } = product;
 
-  const navigate = useNavigate();
-
-  const handelBookForm = (e) => {
-    e.preventDefault();
-
-    const form = e.target;
-
-    const buyerName = form.buyerName.value;
-    const buyerEmail = form.buyerEmail.value;
-    const number = form.number.value;
-    const meetLocation = form.location.value;
-
-    const bookInfo = {
-      userName: user.displayName,
-      userEmail: user.email,
-      productName,
-      price: sellPrice,
-      buyerName,
-      buyerEmail,
-      number,
-      meetLocation,
-    };
-
-
-
-    toast("Book Success", {
-      position: "top-center",
-      theme: "light",
-    });
-
-    form.reset();
-    navigate("/mybooking");
-  };
   return (
     <div className="border p-4 md:flex gap-4 mb-4 rounded-md bg-white">
       <div className="w-[60%] md:w-[34%] mx-auto mb-4 md:mb-0">
@@ -109,65 +74,13 @@ const Product = ({ product, user }) => {
           </button>
 
           {/* The button to open modal */}
-          <label htmlFor="my-modal-3" className="btn btn-accent">
+          <label
+            onClick={() => setProduct(product)}
+            htmlFor="my-modal-3"
+            className="btn btn-accent"
+          >
             Book Now
           </label>
-        </div>
-
-        {/* Put this part before </body> tag */}
-        <input type="checkbox" id="my-modal-3" className="modal-toggle" />
-        <div className="modal text-center">
-          <div className="modal-box relative">
-            <label
-              htmlFor="my-modal-3"
-              className="btn btn-sm btn-circle absolute right-2 top-2"
-            >
-              ✕
-            </label>
-            <div>
-              <h3 className="text-xl font-bold">{productName}</h3>
-              <p className="py-2">Price: {sellPrice} Tk</p>
-            </div>
-            <form onSubmit={handelBookForm}>
-              <input
-                type="text"
-                name="buyerName"
-                placeholder="Type here"
-                className="input input-bordered w-full max-w-xs mb-2"
-                defaultValue={user?.displayName}
-                readOnly
-              />
-              <input
-                type="email"
-                name="buyerEmail"
-                placeholder="Type here"
-                className="input input-bordered w-full max-w-xs mb-2"
-                defaultValue={user?.email}
-                readOnly
-              />
-              <input
-                type="number"
-                name="number"
-                placeholder="Contact Number"
-                className="input input-bordered w-full max-w-xs mb-2"
-                required
-              />
-
-              <input
-                type="text"
-                name="location"
-                placeholder="meeting location"
-                className="input input-bordered w-full max-w-xs mb-2"
-                required
-              />
-
-              <div>
-                <button type="submit" className="btn btn-primary">
-                  Confirm
-                </button>
-              </div>
-            </form>
-          </div>
         </div>
       </div>
     </div>

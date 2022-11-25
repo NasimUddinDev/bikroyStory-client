@@ -3,9 +3,11 @@ import { Link, useLoaderData } from "react-router-dom";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import Product from "./Product/Product";
 import { AuthContext } from "../../contextApi/AuthProvider";
+import BookingModal from "./BookingModal/BookingModal";
 
 const Category = () => {
   const [products, setProducts] = useState([]);
+  const [product, setProduct] = useState(null);
   const [categorys, setCategorys] = useState([]);
   const { name } = useLoaderData();
   const { user } = useContext(AuthContext);
@@ -51,12 +53,20 @@ const Category = () => {
 
         <div className="w-full lg:w-[60%]">
           {products.map((product) => (
-            <Product product={product} key={product._id} user={user}></Product>
+            <Product
+              product={product}
+              key={product._id}
+              setProduct={setProduct}
+            ></Product>
           ))}
 
-          {products.map((product) => (
-            <Product product={product} key={product._id} user={user}></Product>
-          ))}
+          {product && (
+            <BookingModal
+              product={product}
+              setProduct={setProduct}
+              user={user}
+            ></BookingModal>
+          )}
         </div>
 
         <div className="w-[20%] border rounded-md p-2 bg-white hidden lg:block">
