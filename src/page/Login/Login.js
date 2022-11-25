@@ -82,6 +82,8 @@ const Login = () => {
         console.log(error);
       });
   };
+
+  
   return (
     <div className="hero py-8 bg-base-300">
       <div className="w-[80%] md:w-[50%] lg:w-[35%]">
@@ -146,6 +148,7 @@ const Login = () => {
               </button>
             </div>
           </form>
+
           <div className="card-body pt-0">
             <div>
               <p className="divider">Or</p>
