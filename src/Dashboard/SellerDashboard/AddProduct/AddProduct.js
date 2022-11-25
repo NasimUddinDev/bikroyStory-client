@@ -46,9 +46,10 @@ const AddProduct = () => {
             condition,
             location,
             used,
-            seller: user.displayName,
             date,
             time,
+            seller: user.displayName,
+            sellerEmail: user?.email,
           };
 
           fetch("http://localhost:5000/products", {

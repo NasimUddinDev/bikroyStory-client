@@ -25,7 +25,7 @@ const Category = () => {
   }, [name]);
 
   return (
-    <div className="w-[70%] mx-auto py-5">
+    <div className="w-[80%] mx-auto py-5">
       <section className="lg:flex gap-4">
         <div className="w-[25%] bg-white rounded-md p-4 hidden lg:block">
           <h3 className="flex items-center">
@@ -36,7 +36,8 @@ const Category = () => {
           </h3>
 
           <div>
-            <ul className="py-4">
+            <h2 className="text-xl font-semibold pt-4 pb-2">Category</h2>
+            <ul className="p-4 pt-0">
               {categorys.map((category) => (
                 <li key={category._id}>
                   <Link

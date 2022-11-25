@@ -17,12 +17,12 @@ const Product = ({ product, setProduct }) => {
   } = product;
 
   return (
-    <div className="border p-4 md:flex gap-4 mb-4 rounded-md bg-white">
-      <div className="w-[60%] md:w-[34%] mx-auto mb-4 md:mb-0">
-        <img src={picture} alt="Shoes" className="w-full h-48" />
+    <div className="border p-2 md:flex gap-4 mb-4 rounded-md bg-white">
+      <div className="w-[80%] md:w-[40%] mx-auto mb-4 md:mb-0">
+        <img src={picture} alt="Shoes" className="w-full h-52" />
       </div>
 
-      <div className="w-[80%] mx-auto md:w-[66%]">
+      <div className="w-[80%] mx-auto md:w-[60%]">
         <div>
           <div className="md:flex justify-between">
             <div>
