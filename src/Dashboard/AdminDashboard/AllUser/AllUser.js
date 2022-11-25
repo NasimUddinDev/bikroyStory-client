@@ -4,7 +4,7 @@ import { AiFillDelete } from "react-icons/ai";
 
 const AllUser = () => {
   const { data: users = [] } = useQuery({
-    queryKey: ["bookings"],
+    queryKey: ["users"],
     queryFn: () =>
       fetch(`http://localhost:5000/users`, {
         headers: {
