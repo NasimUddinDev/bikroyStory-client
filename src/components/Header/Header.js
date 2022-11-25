@@ -16,8 +16,8 @@ const Header = () => {
       <li>
         {user ? (
           <>
-            <Link to="/dashboard" className="mr-8">
-              My orders
+            <Link to="/mybooking" className="mr-8">
+              My Booking
             </Link>
             <button onClick={logout} className="btn">
               Log Out

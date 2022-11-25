@@ -1,6 +1,7 @@
 import React from "react";
 import { RiErrorWarningLine } from "react-icons/ri";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Product = ({ product, user }) => {
   const {
@@ -13,6 +14,8 @@ const Product = ({ product, user }) => {
     sellPrice,
     use,
   } = product;
+
+  const navigate = useNavigate();
 
   const handelBookForm = (e) => {
     e.preventDefault();
@@ -35,12 +38,15 @@ const Product = ({ product, user }) => {
       meetLocation,
     };
 
+
+
     toast("Book Success", {
       position: "top-center",
       theme: "light",
     });
 
     form.reset();
+    navigate("/mybooking");
   };
   return (
     <div className="border p-4 md:flex gap-4 mb-4 rounded-md bg-white">

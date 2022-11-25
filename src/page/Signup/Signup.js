@@ -1,3 +1,4 @@
+import { data } from "autoprefixer";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -55,11 +56,9 @@ const Signup = () => {
                   },
                   body: JSON.stringify(userInfo),
                 })
-                  .then((res) => {
-                    navigate("/login");
-                  })
-                  .catch((error) => {
-                    console.log(error);
+                  .then((res) => res.json())
+                  .then((data) => {
+                    getToken(email);
                   });
               }
             })
@@ -81,6 +80,18 @@ const Signup = () => {
       .then((result) => {})
       .catch((error) => {
         console.error(error);
+      });
+  };
+
+  // Get token
+  const getToken = (email) => {
+    fetch(`http://localhost:5000/jwt?email=${email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.accessToken) {
+          localStorage.setItem("accessToken", data.accessToken);
+          navigate("/login");
+        }
       });
   };
 
