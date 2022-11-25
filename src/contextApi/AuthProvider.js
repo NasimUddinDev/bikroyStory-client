@@ -2,16 +2,18 @@ import React, { createContext, useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
   getAuth,
+  GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
   updateProfile,
 } from "firebase/auth";
 import app from "../firebase/firebase.init";
-import { current } from "daisyui/src/colors";
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -24,6 +26,12 @@ const AuthProvider = ({ children }) => {
   const craeteUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  //Google Signup
+  const googleSignup = () => {
+    setLoading(true);
+    return signInWithPopup(auth, provider);
   };
 
   // User Name And Photo
@@ -94,6 +102,7 @@ const AuthProvider = ({ children }) => {
   const authInfo = {
     user,
     craeteUser,
+    googleSignup,
     updateUser,
     login,
     logout,
