@@ -1,7 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
+import AllUser from "../Dashboard/AdminDashboard/AllUser/AllUser";
+import MyBooking from "../Dashboard/BuyerDashboard/MyBokking/MyBooking";
+import DashboardLayout from "../Layout/Dashboard/DashboardLayout";
 import Main from "../Layout/Main/Main";
 import Blog from "../page/Blog/Blog";
-import MyBooking from "../page/Buyer/MyBooking/MyBooking";
 import Category from "../page/Category/Category";
 import ErrorPage from "../page/ErrorPage/ErrorPage";
 import Home from "../page/Home/Home/Home";
@@ -44,15 +46,33 @@ const router = createBrowserRouter([
         path: "/signup",
         element: <Signup></Signup>,
       },
-      {
-        path: "/mybooking",
-        element: <MyBooking></MyBooking>,
-      },
     ],
   },
   {
     path: "*",
     element: <ErrorPage></ErrorPage>,
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "/dashboard",
+        element: <MyBooking></MyBooking>,
+      },
+      {
+        path: "/dashboard/mybooking",
+        element: <MyBooking></MyBooking>,
+      },
+      {
+        path: "/dashboard/allusers",
+        element: <AllUser></AllUser>,
+      },
+    ],
   },
 ]);
 

@@ -16,8 +16,8 @@ const Header = () => {
       <li>
         {user ? (
           <>
-            <Link to="/mybooking" className="mr-8">
-              My Booking
+            <Link to="/dashboard" className="mr-8">
+              Dashboard
             </Link>
             <button onClick={logout} className="btn">
               Log Out
@@ -34,7 +34,10 @@ const Header = () => {
   return (
     <header className="bg-white">
       <div className="navbar w-[80%] mx-auto">
-        <div className="navbar-start">
+        <div className="navbar-start items-center gap-2">
+          <label htmlFor="my-drawer-2" className="drawer-button lg:hidden">
+            <GrMenu className="text-2xl" />
+          </label>
           <Link
             to="/home"
             className="text-2xl md:text-3xl font-bold text-teal-700 hover:text-teal-600 duration-200"

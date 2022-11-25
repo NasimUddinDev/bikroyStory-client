@@ -4,15 +4,21 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../contextApi/AuthProvider";
+import useToken from "../../Hooks/useToken";
 
 const Signup = () => {
   const { craeteUser, updateUser } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
-
   const { register, handleSubmit } = useForm();
   const imageBBKey = process.env.REACT_APP_imageBB_key;
-
   const navigate = useNavigate();
+
+  const [newUser, setNewUser] = useState("");
+  const [token] = useToken(newUser);
+
+  if (token) {
+    navigate("/login");
+  }
 
   const handelSignup = (data) => {
     setLoading(true);
@@ -58,7 +64,8 @@ const Signup = () => {
                 })
                   .then((res) => res.json())
                   .then((data) => {
-                    getToken(email);
+                    // getToken(email);
+                    setNewUser(email);
                   });
               }
             })
@@ -84,16 +91,15 @@ const Signup = () => {
   };
 
   // Get token
-  const getToken = (email) => {
-    fetch(`http://localhost:5000/jwt?email=${email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.accessToken) {
-          localStorage.setItem("accessToken", data.accessToken);
-          navigate("/login");
-        }
-      });
-  };
+  // const getToken = (email) => {
+  //   fetch(`http://localhost:5000/jwt?email=${email}`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if (data.accessToken) {
+  //         localStorage.setItem("accessToken", data.accessToken);
+  //       }
+  //     });
+  // };
 
   return (
     <div className="container mx-auto py-5">
