@@ -2,7 +2,10 @@ import { createBrowserRouter } from "react-router-dom";
 import AllBuyer from "../Dashboard/AdminDashboard/AllBuyer/AllBuyer";
 import AllSeller from "../Dashboard/AdminDashboard/AllSeller/AllSeller";
 import AllUser from "../Dashboard/AdminDashboard/AllUser/AllUser";
+import RepotedProducts from "../Dashboard/AdminDashboard/RepotedProducts/RepotedProducts";
 import MyBooking from "../Dashboard/BuyerDashboard/MyBokking/MyBooking";
+import AddProduct from "../Dashboard/SellerDashboard/AddProduct/AddProduct";
+import MyProducts from "../Dashboard/SellerDashboard/MyProducts/MyProducts";
 import DashboardLayout from "../Layout/Dashboard/DashboardLayout";
 import Main from "../Layout/Main/Main";
 import Blog from "../page/Blog/Blog";
@@ -12,6 +15,7 @@ import Home from "../page/Home/Home/Home";
 import Login from "../page/Login/Login";
 import AdminRoute from "../PrivateRoute/AdminRoute";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import SellerRoute from "../PrivateRoute/SellerRoute/SellerRoute";
 import Signup from "./../page/Signup/Signup";
 
 const router = createBrowserRouter([
@@ -63,10 +67,10 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
-      // {
-      //   path: "/dashboard",
-      //   element: <MyBooking></MyBooking>,
-      // },
+      {
+        path: "/dashboard",
+        element: <MyBooking></MyBooking>,
+      },
       {
         path: "/dashboard/mybooking",
         element: <MyBooking></MyBooking>,
@@ -93,6 +97,30 @@ const router = createBrowserRouter([
           <AdminRoute>
             <AllSeller></AllSeller>
           </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/repotedproducts",
+        element: (
+          <AdminRoute>
+            <RepotedProducts></RepotedProducts>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/addproduct",
+        element: (
+          <SellerRoute>
+            <AddProduct></AddProduct>
+          </SellerRoute>
+        ),
+      },
+      {
+        path: "/dashboard/myproducts",
+        element: (
+          <SellerRoute>
+            <MyProducts></MyProducts>
+          </SellerRoute>
         ),
       },
     ],

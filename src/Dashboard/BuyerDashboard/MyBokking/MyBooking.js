@@ -17,28 +17,32 @@ const MyBooking = () => {
 
   return (
     <div className="overflow-x-auto">
-      <table className="table w-full">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Product</th>
-            <th>Price</th>
-            <th>MeetLocation</th>
-            <th>Payment</th>
-          </tr>
-        </thead>
-        <tbody>
-          {bookings?.map((booking) => (
-            <tr key={booking._id}>
-              <th className="text-red-500">Remove</th>
-              <td>{booking.productName}</td>
-              <td>{booking.price} Tk</td>
-              <td>{booking.meetLocation}</td>
-              <td>unpaid</td>
+      {bookings.length === 0 ? (
+        "No Booking"
+      ) : (
+        <table className="table w-full">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Product</th>
+              <th>Price</th>
+              <th>MeetLocation</th>
+              <th>Payment</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {bookings?.map((booking) => (
+              <tr key={booking._id}>
+                <th className="text-red-500">Remove</th>
+                <td>{booking.productName}</td>
+                <td>{booking.price} Tk</td>
+                <td>{booking.meetLocation}</td>
+                <td>unpaid</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };

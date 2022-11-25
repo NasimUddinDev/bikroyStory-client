@@ -26,7 +26,7 @@ const Login = () => {
 
     login(email, password)
       .then((result) => {
-        if (result.user.uid && result.user.email) {
+        if (result.user) {
           toast("Login Success");
           form.reset();
           setLoginUserEmail(result.user.email);
