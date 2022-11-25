@@ -46,7 +46,7 @@ const AllUser = () => {
               <th>{i + 1}</th>
               <td>{user.userName}</td>
               <td>{user.email}</td>
-              <td>{user.userSatus}</td>
+              <td>{user.role}</td>
               <td>
                 <button
                   onClick={() => handelUserDelete(user._id)}

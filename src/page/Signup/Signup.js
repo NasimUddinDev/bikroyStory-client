@@ -44,7 +44,7 @@ const Signup = () => {
             userName,
             userPhoto,
             email,
-            userSatus: data.userSatus,
+            role: data.userRole,
           };
 
           craeteUser(email, password)
@@ -89,17 +89,6 @@ const Signup = () => {
         console.error(error);
       });
   };
-
-  // Get token
-  // const getToken = (email) => {
-  //   fetch(`http://localhost:5000/jwt?email=${email}`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       if (data.accessToken) {
-  //         localStorage.setItem("accessToken", data.accessToken);
-  //       }
-  //     });
-  // };
 
   return (
     <div className="container mx-auto py-5">
@@ -164,7 +153,7 @@ const Signup = () => {
             <span className="label-text">Account Type:</span>
           </label>
           <select
-            {...register("userSatus", { required: true })}
+            {...register("userRole", { required: true })}
             className="select select-bordered w-full "
           >
             <option value="Buyer">Buyer</option>

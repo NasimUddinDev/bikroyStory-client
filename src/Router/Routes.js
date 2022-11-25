@@ -1,4 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
+import AllBuyer from "../Dashboard/AdminDashboard/AllBuyer/AllBuyer";
+import AllSeller from "../Dashboard/AdminDashboard/AllSeller/AllSeller";
 import AllUser from "../Dashboard/AdminDashboard/AllUser/AllUser";
 import MyBooking from "../Dashboard/BuyerDashboard/MyBokking/MyBooking";
 import DashboardLayout from "../Layout/Dashboard/DashboardLayout";
@@ -8,6 +10,7 @@ import Category from "../page/Category/Category";
 import ErrorPage from "../page/ErrorPage/ErrorPage";
 import Home from "../page/Home/Home/Home";
 import Login from "../page/Login/Login";
+import AdminRoute from "../PrivateRoute/AdminRoute";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import Signup from "./../page/Signup/Signup";
 
@@ -60,17 +63,37 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
-      {
-        path: "/dashboard",
-        element: <MyBooking></MyBooking>,
-      },
+      // {
+      //   path: "/dashboard",
+      //   element: <MyBooking></MyBooking>,
+      // },
       {
         path: "/dashboard/mybooking",
         element: <MyBooking></MyBooking>,
       },
       {
         path: "/dashboard/allusers",
-        element: <AllUser></AllUser>,
+        element: (
+          <AdminRoute>
+            <AllUser></AllUser>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/allbuyer",
+        element: (
+          <AdminRoute>
+            <AllBuyer></AllBuyer>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/allseller",
+        element: (
+          <AdminRoute>
+            <AllSeller></AllSeller>
+          </AdminRoute>
+        ),
       },
     ],
   },
