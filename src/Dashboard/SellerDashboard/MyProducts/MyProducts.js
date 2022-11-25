@@ -35,9 +35,11 @@ const MyProducts = () => {
 
   return (
     <div className="p-4">
-      <h2 className="text-xl">My Products: {myProducts.length}</h2>
+      <h2 className="text-2xl text-center text-teal-600 font-semibold mb-4">
+        My Products: {myProducts.length}
+      </h2>
 
-      <table className="table w-full">
+      <table className="table w-full border">
         <thead>
           <tr>
             <th></th>

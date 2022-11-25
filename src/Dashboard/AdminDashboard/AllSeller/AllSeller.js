@@ -1,25 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { AiFillDelete } from "react-icons/ai";
+import { useQuery } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 const AllSeller = () => {
-  const [sellers, setSellers] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch("http://localhost:5000/users", {
-      headers: {
-        authorization: `bearer ${localStorage.getItem("accessToken")}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data) {
-          const sellers = data.filter((user) => user.role === "Seller");
-          setSellers(sellers);
-          setLoading(false);
-        }
-      });
-  }, []);
+  const userRole = "Seller";
+  const {
+    data: sellers = [],
+    refetch,
+    loading,
+  } = useQuery({
+    queryKey: ["users", userRole],
+    queryFn: () =>
+      fetch(`http://localhost:5000/users?role=${userRole}`, {
+        headers: {
+          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }).then((res) => res.json()),
+  });
 
   // delete Buyer
   const handelUserDelete = (id) => {
@@ -31,13 +29,18 @@ const AllSeller = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data.deletedCount > 0) {
-            alert(`Delete successuly`);
+            toast("Delete Success");
+            refetch();
           }
         });
     }
   };
   return (
     <div className="overflow-x-auto">
+      <h2 className="text-2xl font-semibold text-center text-teal-600 py-4">
+        All Seller
+      </h2>
+
       {loading && (
         <div role="status">
           <svg
@@ -63,7 +66,7 @@ const AllSeller = () => {
       {sellers.length === 0 ? (
         "No Seller"
       ) : (
-        <table className="table w-full">
+        <table className="table w-full border">
           <thead>
             <tr>
               <th></th>

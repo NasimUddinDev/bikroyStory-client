@@ -4,9 +4,42 @@ import { toast } from "react-toastify";
 import { AuthContext } from "../../../contextApi/AuthProvider";
 
 const AddProduct = () => {
-  const { user, date, getDate, getTime, time } = useContext(AuthContext);
-  getTime();
-  getDate();
+  const { user } = useContext(AuthContext);
+
+  const now = new Date();
+
+  // Time
+  let hours = now.getHours();
+  let minutes = now.getMinutes();
+  let formate = "AM";
+  if (hours > 10) {
+    hours = hours - 12;
+    formate = "pm";
+  }
+  hours = hours === 0 ? 12 : hours;
+  hours = hours < 10 ? "0" + hours : hours;
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  const time = `${hours}:${minutes} ${formate}`;
+
+  // Date
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  let month = months[now.getMonth()];
+  const day = now.getDate();
+  const year = now.getFullYear();
+  const date = `${month}-${day}-${year}`;
 
   const { register, handleSubmit, reset } = useForm();
   const [loading, setLoading] = useState(false);
@@ -74,7 +107,9 @@ const AddProduct = () => {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold text-center mb-3">Add a Product</h2>
+      <h2 className="text-3xl font-bold text-center mb-3 text-teal-600">
+        Add a Product
+      </h2>
       <form
         onSubmit={handleSubmit(handelAddProduct)}
         className="w-[80%] mx-auto card card-body shadow-2xl bg-white"
@@ -159,9 +194,7 @@ const AddProduct = () => {
               className="select select-bordered w-full "
             >
               <option defaultValue="excellent">excellent</option>
-              <option defaultValue="good" selected>
-                good
-              </option>
+              <option defaultValue="good">good</option>
               <option defaultValue="fair">fair</option>
             </select>
           </div>

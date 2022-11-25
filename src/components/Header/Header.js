@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import "./Header.css";
+import { Link, NavLink } from "react-router-dom";
 import { GrMenu } from "react-icons/gr";
 import { AuthContext } from "../../contextApi/AuthProvider";
 
@@ -8,31 +9,36 @@ const Header = () => {
   const menu = (
     <>
       <li>
-        <Link to="/home">Home</Link>
+        <NavLink
+          to="/home"
+          className={({ isActive }) => (isActive ? "active" : "text-black")}
+        >
+          Home
+        </NavLink>
       </li>
       <li>
-        <Link to="/blog">Blog</Link>
+        <NavLink to="/blog">Blog</NavLink>
       </li>
       <li>
         {user ? (
           <>
-            <Link to="/dashboard" className="mr-8">
+            <NavLink to="/dashboard" className="mr-8">
               Dashboard
-            </Link>
-            <button onClick={logout} className="btn">
+            </NavLink>
+            <button onClick={logout} className="btn btn-accent">
               Log Out
             </button>
           </>
         ) : (
-          <Link to="/login" className="btn">
+          <NavLink to="/login" className="btn btn-accent">
             Log In
-          </Link>
+          </NavLink>
         )}
       </li>
     </>
   );
   return (
-    <header className="bg-white">
+    <header className="bg-base-200 border-b border-teal-600">
       <div className="navbar w-[80%] mx-auto">
         <div className="navbar-start items-center gap-2">
           <label htmlFor="my-drawer-2" className="drawer-button lg:hidden">

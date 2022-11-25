@@ -36,9 +36,11 @@ const MyBooking = () => {
   return (
     <div className="overflow-x-auto p-4">
       {bookings.length === 0 ? (
-        "No Booking"
+        <h2 className="text-2xl text-center text-teal-600 font-semibold">
+          No Booking
+        </h2>
       ) : (
-        <table className="table w-full">
+        <table className="table w-full border">
           <thead>
             <tr>
               <th></th>

@@ -5,34 +5,77 @@ import { AuthContext } from "../../contextApi/AuthProvider";
 import useToken from "./../../Hooks/useToken";
 
 const Login = () => {
-  const { login } = useContext(AuthContext);
-  const [loading, setLoading] = useState(false);
+  const { login, googleSignup } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/home";
 
-  const [loginUserEmail, setLoginUserEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const [loginUserEmail, setLoginUserEmail] = useState(null);
   const [token] = useToken(loginUserEmail);
 
   if (token) {
     navigate(from, { replace: true });
   }
 
+  // Handel Login with Email and password
   const handelLogin = (e) => {
     e.preventDefault();
-    setLoading(true);
 
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
+
+    setLoading(true);
 
     login(email, password)
       .then((result) => {
         if (result.user) {
           toast("Login Success");
           setLoginUserEmail(result?.user?.email);
-          form.reset();
           setLoading(false);
+          form.reset();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
+  };
+
+  // Handel Google Login
+  const handelGoogleLogin = () => {
+    googleSignup()
+      .then((result) => {
+        const userName = result.user.displayName;
+        const email = result.user.email;
+        const userPhoto = result.user.photoURL;
+
+        const userInfo = {
+          userName,
+          userPhoto,
+          email,
+          role: "Buyer",
+        };
+
+        if (result?.user) {
+          // setLoginUserEmail(result.user.email);
+
+          // User Info send Database
+          fetch("http://localhost:5000/users", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(userInfo),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              setLoginUserEmail(result.user.email);
+              toast("LogIn Success");
+            })
+            .catch((error) => console.log(error));
         }
       })
       .catch((error) => {
@@ -40,12 +83,14 @@ const Login = () => {
       });
   };
   return (
-    <div className="hero py-5">
+    <div className="hero py-8 bg-base-300">
       <div className="w-[80%] md:w-[50%] lg:w-[35%]">
-        <h2 className="text-3xl font-bold text-center mb-3">Login Now!</h2>
+        <h2 className="text-3xl font-bold text-center mb-3 text-teal-600">
+          Login Now!
+        </h2>
 
         <div className="card w-full shadow-2xl bg-base-100">
-          <form onSubmit={handelLogin} className="card-body">
+          <form onSubmit={handelLogin} className="card-body pb-1">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -74,7 +119,7 @@ const Login = () => {
               </label>
             </div>
             <div className="form-control mt-3">
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn">
                 {loading ? (
                   <div role="status">
                     <svg
@@ -100,14 +145,17 @@ const Login = () => {
                 )}
               </button>
             </div>
-
+          </form>
+          <div className="card-body pt-0">
             <div>
               <p className="divider">Or</p>
-              <button className="w-full btn btn-outline mt-3">
+              <button
+                onClick={handelGoogleLogin}
+                className="w-full btn btn-outline mt-3"
+              >
                 Google Login
               </button>
             </div>
-
             <div>
               <small>
                 Your have no account?{" "}
@@ -116,7 +164,7 @@ const Login = () => {
                 </Link>
               </small>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>

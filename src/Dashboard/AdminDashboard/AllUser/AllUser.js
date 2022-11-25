@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { AiFillDelete } from "react-icons/ai";
+import { toast } from "react-toastify";
 
 const AllUser = () => {
-  const { data: users = [] } = useQuery({
+  const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: () =>
       fetch(`http://localhost:5000/users`, {
@@ -22,7 +23,8 @@ const AllUser = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data.deletedCount > 0) {
-            alert(`Delete successuly`);
+            toast("Delete Success");
+            refetch();
           }
         });
     }
@@ -30,7 +32,10 @@ const AllUser = () => {
 
   return (
     <div className="overflow-x-auto">
-      <table className="table w-full">
+      <h2 className="text-2xl font-semibold text-center text-teal-600 py-4">
+        All Users
+      </h2>
+      <table className="table w-full border">
         <thead>
           <tr>
             <th></th>
