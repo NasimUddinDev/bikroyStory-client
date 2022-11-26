@@ -15,7 +15,7 @@ const CheckoutForm = ({ booking }) => {
   const stripe = useStripe();
   const elements = useElements();
 
-  const { price, buyerEmail, buyerName, _id } = booking;
+  const { price, buyerEmail, buyerName, _id, ProductId } = booking;
 
   useEffect(() => {
     fetch("http://localhost:5000/create-payment-intent", {
@@ -75,6 +75,7 @@ const CheckoutForm = ({ booking }) => {
     if (paymentIntent.status === "succeeded") {
       const paymentInfo = {
         bookingId: _id,
+        ProductId,
         price,
         buyerEmail,
         transactionId: paymentIntent.id,
