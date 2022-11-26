@@ -81,10 +81,22 @@ const MyProducts = () => {
                   <th>{i + 1}</th>
                   <td>{product.productName}</td>
                   <td>{product.sellPrice}</td>
-                  <td>Available</td>
                   <td>
-                    {product?.advertise ? (
-                      "advertised"
+                    {product.available === "soled"
+                      ? product.available
+                      : "Available"}
+                  </td>
+                  <td>
+                    {product.available === "soled" ? (
+                      <button
+                        onClick={() => handelAdvertise(product._id)}
+                        className="btn btn-xs btn-accent"
+                        disabled
+                      >
+                        advertise
+                      </button>
+                    ) : product?.advertise ? (
+                      "Advertised"
                     ) : (
                       <button
                         onClick={() => handelAdvertise(product._id)}

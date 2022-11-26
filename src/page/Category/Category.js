@@ -24,7 +24,10 @@ const Category = () => {
     fetch(`http://localhost:5000/products?category=${name}`)
       .then((res) => res.json())
       .then((data) => {
-        setProducts(data);
+        const availableProducts = data.filter(
+          (product) => product.available !== "soled"
+        );
+        setProducts(availableProducts);
         setLoading(false);
       });
   }, [name]);
