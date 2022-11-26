@@ -27,9 +27,6 @@ const DashboardLayout = () => {
             <li className="bg-teal-600 text-white font-semibold rounded-md mb-2">
               <Link to="/dashboard/mybooking">My Booking</Link>
             </li>
-            {/* <li className="bg-teal-600 text-white font-semibold rounded-md mb-2">
-              <Link to="/dashboard/mywishlist">My WishList</Link>
-            </li> */}
 
             {isAdmin && (
               <>

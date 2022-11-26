@@ -24,11 +24,12 @@ const Login = () => {
     login(email, password)
       .then((result) => {
         if (result?.user) {
-          navigate(from, { replace: true });
           toast("Login Success");
           getLoginUserToekn(result.user.email);
           setLoading(false);
           form.reset();
+          window.location.reload();
+          navigate(from, { replace: true });
         }
       })
       .catch((error) => {
@@ -54,7 +55,7 @@ const Login = () => {
 
         if (result?.user) {
           // User Info send Database
-          fetch("http://localhost:5000/users", {
+          fetch("https://bikroy-store-server-nasim0994.vercel.app/users", {
             method: "POST",
             headers: {
               "content-type": "application/json",
@@ -77,11 +78,12 @@ const Login = () => {
 
   // GET token
   const getLoginUserToekn = (email) => {
-    fetch(`http://localhost:5000/jwt?email=${email}`)
+    fetch(`https://bikroy-store-server-nasim0994.vercel.app/jwt?email=${email}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.accessToken) {
           localStorage.setItem("accessToken", data.accessToken);
+          navigate(from, { replace: true });
         }
       });
   };

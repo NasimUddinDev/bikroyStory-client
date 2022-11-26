@@ -6,7 +6,9 @@ const useSeller = (email) => {
 
   useEffect(() => {
     if (email) {
-      fetch(`http://localhost:5000/users/seller/${email}`)
+      fetch(
+        `https://bikroy-store-server-nasim0994.vercel.app/users/seller/${email}`
+      )
         .then((res) => res.json())
         .then((data) => {
           setIsSeller(data.Seller);

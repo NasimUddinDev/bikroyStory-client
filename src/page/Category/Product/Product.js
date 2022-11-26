@@ -24,37 +24,15 @@ const Product = ({ product, setProduct }) => {
     sellerVerify,
   } = product;
 
-  // const handelWishlist = (product) => {
-  //   const confirm = window.confirm("Are You sure Report this Product");
-  //   if (confirm) {
-  //     const wishlistProduct = {
-  //       product,
-  //       user: user.email,
-  //     };
-
-  //     fetch("http://localhost:5000/wishlists", {
-  //       method: "POST",
-  //       headers: {
-  //         "content-type": "application/json",
-  //       },
-  //       body: JSON.stringify(wishlistProduct),
-  //     })
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         console.log(data);
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   }
-  // };
-
   const handelReport = (id) => {
     const confirm = window.confirm("Are You sure Report this Product");
     if (confirm) {
-      fetch(`http://localhost:5000/products/report/${id}`, {
-        method: "PUT",
-      })
+      fetch(
+        `https://bikroy-store-server-nasim0994.vercel.app/products/report/${id}`,
+        {
+          method: "PUT",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
@@ -139,13 +117,6 @@ const Product = ({ product, setProduct }) => {
 
         {/* Buttoon */}
         <div className="md:flex justify-between items-center">
-          {/* <button
-            onClick={() => handelWishlist(product)}
-            className="flex items-center gap-1 btn btn-outline"
-          >
-            <RiErrorWarningLine /> Add Wishlist
-          </button> */}
-
           <button
             onClick={() => handelReport(product._id)}
             className="flex items-center gap-1 text-red-500"
