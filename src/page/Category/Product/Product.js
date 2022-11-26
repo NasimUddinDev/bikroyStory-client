@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { RiErrorWarningLine } from "react-icons/ri";
+import { MdVerified, MdLocationOn } from "react-icons/md";
+import { BsFillTelephoneFill } from "react-icons/bs";
+import { AuthContext } from "../../../contextApi/AuthProvider";
+import { toast } from "react-toastify";
 
 const Product = ({ product, setProduct }) => {
+  // const { user } = useContext(AuthContext);
   const {
     productName,
     picture,
@@ -14,15 +19,57 @@ const Product = ({ product, setProduct }) => {
     used,
     condition,
     seller,
+    number,
+    description,
+    sellerVerify,
   } = product;
 
+  // const handelWishlist = (product) => {
+  //   const confirm = window.confirm("Are You sure Report this Product");
+  //   if (confirm) {
+  //     const wishlistProduct = {
+  //       product,
+  //       user: user.email,
+  //     };
+
+  //     fetch("http://localhost:5000/wishlists", {
+  //       method: "POST",
+  //       headers: {
+  //         "content-type": "application/json",
+  //       },
+  //       body: JSON.stringify(wishlistProduct),
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         console.log(data);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   }
+  // };
+
+  const handelReport = (id) => {
+    const confirm = window.confirm("Are You sure Report this Product");
+    if (confirm) {
+      fetch(`http://localhost:5000/products/report/${id}`, {
+        method: "PUT",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          toast("Report Success");
+        });
+    }
+  };
+
   return (
-    <div className="border p-2 md:flex gap-4 mb-4 rounded-md">
-      <div className="w-[80%] md:w-[40%] mx-auto mb-4 md:mb-0">
+    <div className="border p-2 md:flex gap-4 mb-4 rounded-md shadow-md">
+      <div className="w-[80%] md:w-[35%] mx-auto mb-4 md:mb-0">
         <img src={picture} alt="Shoes" className="w-full h-52" />
       </div>
 
-      <div className="w-[80%] mx-auto md:w-[60%]">
+      <div className="w-[80%] mx-auto md:w-[65%]">
         <div>
           <div className="md:flex justify-between">
             <div className="w-[74%]">
@@ -32,16 +79,34 @@ const Product = ({ product, setProduct }) => {
               <small className="text-gray-600">
                 Post on {time}, {date}
               </small>
-              <p>
-                <span className="text-gray-500">Location:</span> {location}
+              <p className="flex items-center gap-1">
+                <span className="text-gray-500">For sale by</span>{" "}
+                {sellerVerify && (
+                  <span className="text-blue-500 text-[18px]">
+                    <MdVerified />
+                  </span>
+                )}{" "}
+                {seller}
               </p>
-              <p>
-                <span className="text-gray-500">For sale by</span> {seller}
+              <p className="flex items-center gap-1">
+                {" "}
+                <span className="text-gray-500">
+                  <BsFillTelephoneFill />
+                </span>{" "}
+                {number}
               </p>
             </div>
 
             <div className="w-[26%]">
-              <span className="text-gray-500">Brand:</span> {category}
+              <p>
+                <span className="text-gray-500">Brand:</span> {category}
+              </p>
+              <p className="flex items-center gap-1">
+                <span className="text-gray-500 text-xl">
+                  <MdLocationOn />
+                </span>
+                {location}
+              </p>
             </div>
           </div>
 
@@ -74,8 +139,18 @@ const Product = ({ product, setProduct }) => {
 
         {/* Buttoon */}
         <div className="md:flex justify-between items-center">
-          <button className="flex items-center gap-1 text-red-600">
-            <RiErrorWarningLine /> Report this add
+          {/* <button
+            onClick={() => handelWishlist(product)}
+            className="flex items-center gap-1 btn btn-outline"
+          >
+            <RiErrorWarningLine /> Add Wishlist
+          </button> */}
+
+          <button
+            onClick={() => handelReport(product._id)}
+            className="flex items-center gap-1 text-red-500"
+          >
+            <RiErrorWarningLine /> Report to Admin
           </button>
 
           {/* The button to open modal */}

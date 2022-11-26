@@ -4,6 +4,8 @@ import AllSeller from "../Dashboard/AdminDashboard/AllSeller/AllSeller";
 import AllUser from "../Dashboard/AdminDashboard/AllUser/AllUser";
 import RepotedProducts from "../Dashboard/AdminDashboard/RepotedProducts/RepotedProducts";
 import MyBooking from "../Dashboard/BuyerDashboard/MyBokking/MyBooking";
+import MyWishList from "../Dashboard/BuyerDashboard/MyWishList/MyWishList";
+import Payment from "../Dashboard/Payment/Payment";
 import AddProduct from "../Dashboard/SellerDashboard/AddProduct/AddProduct";
 import MyProducts from "../Dashboard/SellerDashboard/MyProducts/MyProducts";
 import DashboardLayout from "../Layout/Dashboard/DashboardLayout";
@@ -22,6 +24,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -55,10 +58,7 @@ const router = createBrowserRouter([
       },
     ],
   },
-  {
-    path: "*",
-    element: <ErrorPage></ErrorPage>,
-  },
+
   {
     path: "/dashboard",
     element: (
@@ -66,6 +66,7 @@ const router = createBrowserRouter([
         <DashboardLayout></DashboardLayout>
       </PrivateRoute>
     ),
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/dashboard",
@@ -74,6 +75,16 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/mybooking",
         element: <MyBooking></MyBooking>,
+      },
+      {
+        path: "/dashboard/mywishlist",
+        element: <MyWishList></MyWishList>,
+      },
+      {
+        path: "/dashboard/payment/:id",
+        element: <Payment></Payment>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/bookings/${params.id}`),
       },
       {
         path: "/dashboard/allusers",

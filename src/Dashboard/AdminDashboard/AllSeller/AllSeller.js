@@ -25,6 +25,9 @@ const AllSeller = () => {
     if (confirm) {
       fetch(`http://localhost:5000/users/${id}`, {
         method: "DELETE",
+        headers: {
+          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        },
       })
         .then((res) => res.json())
         .then((data) => {
@@ -35,12 +38,29 @@ const AllSeller = () => {
         });
     }
   };
+
+  // Seller Make verify
+  const handelSellerVerify = (id) => {
+    const confirm = window.confirm(`Are you sure Verify this user`);
+    if (confirm) {
+      fetch(`http://localhost:5000/users/${id}`, {
+        method: "PUT",
+        headers: {
+          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.acknowledged) {
+            toast("Seller Update success");
+            refetch();
+          }
+        });
+    }
+  };
+
   return (
     <div className="overflow-x-auto">
-      <h2 className="text-2xl font-semibold text-center text-teal-600 py-4">
-        All Seller
-      </h2>
-
       {loading && (
         <div role="status">
           <svg
@@ -66,35 +86,51 @@ const AllSeller = () => {
       {sellers.length === 0 ? (
         "No Seller"
       ) : (
-        <table className="table w-full border">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Status</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sellers?.map((user, i) => (
-              <tr key={user._id}>
-                <th>{i + 1}</th>
-                <td>{user.userName}</td>
-                <td>{user.email}</td>
-                <td>{user.role}</td>
-                <td>
-                  <button
-                    onClick={() => handelUserDelete(user._id)}
-                    className="text-2xl text-red-700"
-                  >
-                    <AiFillDelete />
-                  </button>
-                </td>
+        <div>
+          <h2 className="text-2xl font-semibold text-center text-teal-600 py-4">
+            All Seller
+          </h2>
+          <table className="table w-full border">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Verify</th>
+                <th>Delete</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {sellers?.map((user, i) => (
+                <tr key={user._id}>
+                  <th>{i + 1}</th>
+                  <td>{user.userName}</td>
+                  <td>{user.email}</td>
+                  <td>
+                    {user?.verify === "verify" ? (
+                      "Verifyed"
+                    ) : (
+                      <button
+                        onClick={() => handelSellerVerify(user._id)}
+                        className="btn btn-xs btn-accent text-white"
+                      >
+                        Make Verify
+                      </button>
+                    )}
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => handelUserDelete(user._id)}
+                      className="text-2xl text-red-700"
+                    >
+                      <AiFillDelete />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

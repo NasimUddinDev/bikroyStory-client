@@ -3,13 +3,21 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../../contextApi/AuthProvider";
 import { useLoaderData } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 const AddProduct = () => {
   const { user } = useContext(AuthContext);
   const categorys = useLoaderData();
 
-  const now = new Date();
+  const { data: databaseUser = {} } = useQuery({
+    queryKey: ["user", user?.email],
+    queryFn: () =>
+      fetch(`http://localhost:5000/user?email=${user?.email}`).then((res) =>
+        res.json()
+      ),
+  });
 
+  const now = new Date();
   // Time
   let hours = now.getHours();
   let minutes = now.getMinutes();
@@ -63,42 +71,41 @@ const AddProduct = () => {
       .then((res) => res.json())
       .then((imageData) => {
         if (imageData.success) {
-          const productName = data.productName;
-          const picture = imageData.data.url;
-          const sellPrice = data.sellPrice;
-          const orginalPrice = data.orginalPrice;
-          const category = data.category;
-          const condition = data.condition;
-          const location = data.location;
-          const used = data.used;
-
           const product = {
-            productName,
-            picture,
-            sellPrice,
-            orginalPrice,
-            category,
-            condition,
-            location,
-            used,
-            date,
             time,
-            seller: user.displayName,
-            sellerEmail: user?.email,
+            date,
+            productName: data.productName,
+            picture: imageData.data.url,
+            sellPrice: parseInt(data.sellPrice),
+            orginalPrice: data.orginalPrice,
+            category: data.category,
+            condition: data.condition,
+            location: data.location,
+            used: data.used,
+            number: data.number,
+            description: data.description,
+            seller: databaseUser?.userName,
+            sellerEmail: databaseUser?.email,
+            sellerVerify: databaseUser?.verify,
           };
+
+          console.log(product);
 
           fetch("http://localhost:5000/products", {
             method: "POST",
             headers: {
               "content-type": "application/json",
+              authorization: `bearer ${localStorage.getItem("accessToken")}`,
             },
             body: JSON.stringify(product),
           })
             .then((res) => res.json())
             .then((data) => {
-              toast("product successfuly added");
-              setLoading(false);
-              reset();
+              if (data.acknowledged) {
+                toast("product successfuly added");
+                setLoading(false);
+                reset();
+              }
             });
         }
       })
@@ -223,13 +230,39 @@ const AddProduct = () => {
               <span className="label-text font-semibold">Year of used</span>
             </label>
             <input
-              type="number"
+              type="text"
               {...register("used")}
               placeholder="How many days have you used?"
               className="input input-bordered"
               required
             />
           </div>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <div className="form-control w-[50%]">
+            <label className="label">
+              <span className="label-text font-semibold">Number</span>
+            </label>
+            <input
+              type="number"
+              {...register("number")}
+              placeholder="Contact Number"
+              className="input input-bordered"
+              required
+            />
+          </div>
+        </div>
+
+        <div className="form-control ">
+          <label className="label">
+            <span className="label-text font-semibold">Description</span>
+          </label>
+          <textarea
+            className="textarea textarea-bordered"
+            {...register("description")}
+            placeholder="Details product"
+          ></textarea>
         </div>
 
         <button type="submit" className="btn">

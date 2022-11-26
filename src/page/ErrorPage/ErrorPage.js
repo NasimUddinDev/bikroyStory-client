@@ -1,12 +1,15 @@
 import React from "react";
 import "./ErrorPage.css";
-import { Link } from "react-router-dom";
+import { Link, useRouteError } from "react-router-dom";
 
 const ErrorPage = () => {
+  const error = useRouteError();
   return (
     <div className="error-page">
-      <h1>404, Error Page</h1>
-      <h3>Opps! Page Not Found</h3>
+      <h1>404</h1>
+      <p className="text-red-700 text-xl">
+        {error.statusText || error.message}
+      </p>
       <Link to="/home" className="underline font-semibold">
         Go to Home
       </Link>

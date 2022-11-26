@@ -2,22 +2,14 @@ import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../contextApi/AuthProvider";
-import useToken from "./../../Hooks/useToken";
 
 const Login = () => {
   const { login, googleSignup } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/home";
-
-  const [loading, setLoading] = useState(false);
-
-  const [loginUserEmail, setLoginUserEmail] = useState(null);
-  const [token] = useToken(loginUserEmail);
-
-  if (token) {
-    navigate(from, { replace: true });
-  }
 
   // Handel Login with Email and password
   const handelLogin = (e) => {
@@ -31,9 +23,10 @@ const Login = () => {
 
     login(email, password)
       .then((result) => {
-        if (result.user) {
+        if (result?.user) {
+          navigate(from, { replace: true });
           toast("Login Success");
-          setLoginUserEmail(result?.user?.email);
+          getLoginUserToekn(result.user.email);
           setLoading(false);
           form.reset();
         }
@@ -60,8 +53,6 @@ const Login = () => {
         };
 
         if (result?.user) {
-          // setLoginUserEmail(result.user.email);
-
           // User Info send Database
           fetch("http://localhost:5000/users", {
             method: "POST",
@@ -72,7 +63,8 @@ const Login = () => {
           })
             .then((res) => res.json())
             .then((data) => {
-              setLoginUserEmail(result.user.email);
+              navigate(from, { replace: true });
+              getLoginUserToekn(result.user.email);
               toast("LogIn Success");
             })
             .catch((error) => console.log(error));
@@ -83,7 +75,17 @@ const Login = () => {
       });
   };
 
-  
+  // GET token
+  const getLoginUserToekn = (email) => {
+    fetch(`http://localhost:5000/jwt?email=${email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.accessToken) {
+          localStorage.setItem("accessToken", data.accessToken);
+        }
+      });
+  };
+
   return (
     <div className="hero py-8 bg-base-300">
       <div className="w-[80%] md:w-[50%] lg:w-[35%]">

@@ -38,9 +38,6 @@ const AllBuyer = () => {
 
   return (
     <div className="overflow-x-auto">
-      <h2 className="text-2xl font-semibold text-center text-teal-600 py-4">
-        All Buyer
-      </h2>
       {loading && (
         <div role="status">
           <svg
@@ -66,35 +63,40 @@ const AllBuyer = () => {
       {buyers.length === 0 ? (
         "No Buyer"
       ) : (
-        <table className="table w-full border">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Status</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {buyers?.map((user, i) => (
-              <tr key={user._id}>
-                <th>{i + 1}</th>
-                <td>{user.userName}</td>
-                <td>{user.email}</td>
-                <td>{user.role}</td>
-                <td>
-                  <button
-                    onClick={() => handelUserDelete(user._id)}
-                    className="text-2xl text-red-700"
-                  >
-                    <AiFillDelete />
-                  </button>
-                </td>
+        <div>
+          <h2 className="text-2xl font-semibold text-center text-teal-600 py-4">
+            All Buyer
+          </h2>
+          <table className="table w-full border">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Delete</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {buyers?.map((user, i) => (
+                <tr key={user._id}>
+                  <th>{i + 1}</th>
+                  <td>{user.userName}</td>
+                  <td>{user.email}</td>
+                  <td>{user.role}</td>
+                  <td>
+                    <button
+                      onClick={() => handelUserDelete(user._id)}
+                      className="text-2xl text-red-700"
+                    >
+                      <AiFillDelete />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

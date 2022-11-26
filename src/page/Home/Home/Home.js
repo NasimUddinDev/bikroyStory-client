@@ -1,14 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import Banner from "../../../components/Banner/Banner";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import Product from "../../Category/Product/Product";
+import BookingModal from "../../Category/BookingModal/BookingModal";
+import { AuthContext } from "../../../contextApi/AuthProvider";
 
 const Home = () => {
-  const [categorys, setCategorys] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:5000/categorys")
-      .then((res) => res.json())
-      .then((data) => setCategorys(data));
-  }, []);
+  const [product, setProduct] = useState(null);
+  const { user } = useContext(AuthContext);
+
+  const { data: categorys = [] } = useQuery({
+    queryKey: ["categorys"],
+    queryFn: () =>
+      fetch("http://localhost:5000/categorys").then((res) => res.json()),
+  });
+
+  const { data: advertised = [] } = useQuery({
+    queryKey: ["advertised"],
+    queryFn: () =>
+      fetch(`http://localhost:5000/advertised`).then((res) => res.json()),
+  });
 
   return (
     <div className="w-[80%] mx-auto">
@@ -16,9 +28,8 @@ const Home = () => {
         <Banner></Banner>
       </section>
 
-      <section className="py-5">
-        {/* <h2 className="text-lg font-semibold mb-4">Browse items by category</h2> */}
-
+      {/* Category  */}
+      <section className="py-5 bg-base-200">
         <div className="flex gap-8 justify-center">
           {categorys.map((category) => (
             <Link
@@ -36,6 +47,27 @@ const Home = () => {
               </div>
             </Link>
           ))}
+        </div>
+      </section>
+
+      {/* Advertised */}
+      <section className="py-8">
+        <div className="grid lg:grid-cols-2 gap-2">
+          {advertised?.map((product) => (
+            <Product
+              product={product}
+              key={product._id}
+              setProduct={setProduct}
+            ></Product>
+          ))}
+
+          {product && (
+            <BookingModal
+              product={product}
+              setProduct={setProduct}
+              user={user}
+            ></BookingModal>
+          )}
         </div>
       </section>
     </div>
