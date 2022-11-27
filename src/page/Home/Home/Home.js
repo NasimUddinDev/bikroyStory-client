@@ -6,6 +6,8 @@ import Product from "../../Category/Product/Product";
 import BookingModal from "../../Category/BookingModal/BookingModal";
 import { AuthContext } from "../../../contextApi/AuthProvider";
 import Spinner from "./../../../components/Spinner/Spinner";
+import FreeAdd from "../../../images/freeadd.png";
+import Check from "../../../images/check.svg";
 
 const Home = () => {
   const [product, setProduct] = useState(null);
@@ -33,28 +35,30 @@ const Home = () => {
 
   return (
     <div className="w-[80%] mx-auto">
+      {/* Banner */}
       <section className="py-4">
         <Banner></Banner>
       </section>
 
       {/* Category  */}
-      <section className="py-5 bg-base-200">
+      <section className="py-5 ">
         {isLoading && <Spinner />}
+        <h2 className="text-lg mb-4 font-semibold">Browse items by category</h2>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8 justify-center px-2">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-12 justify-center px-2">
           {categorys?.map((category) => (
             <Link
               to={`/categorys/${category._id}`}
               key={category._id}
-              className="card bg-base-200 shadow-xl hover:bg-base-300 duration-200"
+              className="card border shadow-xl hover:bg-base-200 duration-200"
             >
               <div className="card-body items-center text-center">
                 <img
                   src={category.image}
                   alt=""
-                  className="w-32 h-30 lg:h-32  rounded-md"
+                  className="w-28 h-28 rounded-md"
                 />
-                <h2 className="card-title font-bold text-sm md:text-xl lg:text-2xl">
+                <h2 className="card-title font-bold text-sm md:text-xl lg:text-2xl ">
                   {category.name}
                 </h2>
               </div>
@@ -81,6 +85,40 @@ const Home = () => {
               user={user}
             ></BookingModal>
           )}
+        </div>
+      </section>
+
+      {/* Add Your Post Esyly */}
+      <section className="py-8 bg-white">
+        <div className="flex items-center border rounded-md h-96">
+          <div className="w-[50%] p-8">
+            <h2 className="text-3xl font-semibold mb-6">
+              Post your ad for free and easily!
+            </h2>
+            <ul>
+              <li className="flex items-cenetr gap-2  font-semibold mb-2">
+                <img src={Check} alt="" />
+                <p className="text text-stone-700">Register</p>
+              </li>
+              <li className="flex items-cenetr gap-2  font-semibold mb-2">
+                <img src={Check} alt="" />
+                <p className="text text-stone-700">Go to Dashboard</p>
+              </li>
+              <li className="flex items-cenetr gap-2  font-semibold mb-2">
+                <img src={Check} alt="" />
+                <p className="text text-stone-700">
+                  Post ads with pictures of your products!
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div className="w-[50%]">
+            <img
+              src={FreeAdd}
+              alt=""
+              className="h-96 w-full rounded-tr-md rounded-br-md"
+            />
+          </div>
         </div>
       </section>
     </div>
