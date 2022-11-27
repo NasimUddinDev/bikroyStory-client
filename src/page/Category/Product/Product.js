@@ -77,12 +77,12 @@ const Product = ({ product, setProduct }) => {
               <p>
                 <span className="text-gray-500">Brand:</span> {category}
               </p>
-              <p className="flex items-center">
+              <h3 className="flex items-center">
                 <span className="text-gray-500 text-xl">
                   <MdLocationOn />
                 </span>
-                {location}
-              </p>
+                <p> {location}</p>
+              </h3>
             </div>
           </div>
 

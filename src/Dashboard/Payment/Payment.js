@@ -4,9 +4,7 @@ import React from "react";
 import { useLoaderData, useNavigation } from "react-router-dom";
 import Spinner from "../../components/Spinner/Spinner";
 import CheckoutForm from "./CheckoutForm";
-const stripePromise = loadStripe(
-  "pk_test_51M8NwDJeC4qvGKxQW7z7Amcfz6VvBeFqbYhnu2aJodAsryYkjqJu4y4KJ3CMuEUVhfln5LPEApIz4AkhVVP9MsCO005LzUU2FI"
-);
+const stripePromise = loadStripe(process.env.REACT_APP_stripe_KEY);
 
 const Payment = () => {
   const booking = useLoaderData();
