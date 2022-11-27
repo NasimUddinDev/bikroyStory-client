@@ -4,6 +4,7 @@ import Header from "../../components/Header/Header";
 import { AuthContext } from "../../contextApi/AuthProvider";
 import useSeller from "../../Hooks/useSeller";
 import useAdmin from "./../../Hooks/useAdmin";
+import { GrMenu } from "react-icons/gr";
 
 const DashboardLayout = () => {
   const { user } = useContext(AuthContext);
@@ -15,14 +16,28 @@ const DashboardLayout = () => {
       <Header></Header>
 
       <div className="drawer drawer-mobile gap-4 py-5 w-[80%] mx-auto ">
-        <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+        <input id="dasboard-drawer" type="checkbox" className="drawer-toggle" />
 
-        <div className="drawer-content bg-gray-100 rounded-md md:px-4 md:w-[90%]">
-          <Outlet></Outlet>
+        <div className="drawer-content">
+          <label
+            htmlFor="dasboard-drawer"
+            className="lg:hidden btn btn-accent w-[180px]"
+          >
+            <div className="flex items-center text-white">
+              <p>
+                <GrMenu className="text-2xl" />
+              </p>
+              <p>Dashboard Menu</p>
+            </div>
+          </label>
+
+          <div className=" bg-gray-100 rounded-md md:px-4">
+            <Outlet></Outlet>
+          </div>
         </div>
 
-        <div className="drawer-side bg-gray-100 rounded-md">
-          <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
+        <div className="drawer-side bg-gray-100 rounded-md mt-12 lg:mt-0">
+          <label htmlFor="dasboard-drawer" className="drawer-overlay"></label>
           <ul className="menu p-4 w-80  text-base-content">
             <li className="bg-teal-600 text-white font-semibold rounded-md mb-2">
               <Link to="/dashboard/mybooking">My Booking</Link>

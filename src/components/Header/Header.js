@@ -41,9 +41,6 @@ const Header = () => {
     <header className="bg-base-200 border-b border-teal-600">
       <div className="navbar w-[80%] mx-auto">
         <div className="navbar-start items-center gap-2">
-          <label htmlFor="my-drawer-2" className="drawer-button lg:hidden">
-            <GrMenu className="text-2xl" />
-          </label>
           <Link
             to="/home"
             className="text-2xl md:text-3xl font-bold text-teal-700 hover:text-teal-600 duration-200"
