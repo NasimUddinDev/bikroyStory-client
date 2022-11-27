@@ -1,12 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { RiErrorWarningLine } from "react-icons/ri";
 import { MdVerified, MdLocationOn } from "react-icons/md";
 import { BsFillTelephoneFill } from "react-icons/bs";
-import { AuthContext } from "../../../contextApi/AuthProvider";
 import { toast } from "react-toastify";
 
 const Product = ({ product, setProduct }) => {
-  // const { user } = useContext(AuthContext);
   const {
     productName,
     picture,
@@ -42,15 +40,15 @@ const Product = ({ product, setProduct }) => {
   };
 
   return (
-    <div className="border p-2 md:flex gap-4 mb-4 rounded-md shadow-md">
+    <div className="border p-2 md:flex gap-2 mb-4 rounded-md shadow-md overflow-hidden">
       <div className="w-[80%] md:w-[35%] mx-auto mb-4 md:mb-0">
         <img src={picture} alt="Shoes" className="w-full h-52" />
       </div>
 
-      <div className="w-[80%] mx-auto md:w-[65%]">
+      <div className="lg:w-[80%] md:w-[65%] mx-auto ">
         <div>
           <div className="md:flex justify-between">
-            <div className="w-[74%]">
+            <div className="md:w-[65%]">
               <h2 className="card-title text-2xl text-teal-600">
                 {productName}
               </h2>
@@ -75,11 +73,11 @@ const Product = ({ product, setProduct }) => {
               </p>
             </div>
 
-            <div className="w-[26%]">
+            <div className="md:w-[35%]">
               <p>
                 <span className="text-gray-500">Brand:</span> {category}
               </p>
-              <p className="flex items-center gap-1">
+              <p className="flex items-center">
                 <span className="text-gray-500 text-xl">
                   <MdLocationOn />
                 </span>
@@ -116,10 +114,10 @@ const Product = ({ product, setProduct }) => {
         </div>
 
         {/* Buttoon */}
-        <div className="md:flex justify-between items-center">
+        <div className="flex justify-between items-center">
           <button
             onClick={() => handelReport(product._id)}
-            className="flex items-center gap-1 text-red-500"
+            className="flex items-center md:gap-1 text-red-500"
           >
             <RiErrorWarningLine /> Report to Admin
           </button>

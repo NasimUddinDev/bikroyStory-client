@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Navigate, useLocation } from "react-router-dom";
+import Spinner from "../components/Spinner/Spinner";
 import { AuthContext } from "../contextApi/AuthProvider";
 import useAdmin from "./../Hooks/useAdmin";
 
@@ -9,14 +10,13 @@ const AdminRoute = ({ children }) => {
   const location = useLocation();
 
   if (loading || adminLoadin) {
-    return <h2>Loadding....</h2>;
+    return <Spinner></Spinner>;
   }
 
-  if (user && isAdmin) {
-    return children;
+  if (!user && !isAdmin) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
-
-  return <Navigate to="/login" state={{ from: location }} replace />;
+  return children;
 };
 
 export default AdminRoute;

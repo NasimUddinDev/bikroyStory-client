@@ -4,14 +4,14 @@ const Blog = () => {
   return (
     <div className="bg-base-300">
       <div className="w-[80%] mx-auto py-5 ">
-        <div className="card card-side bg-base-100 shadow-xl mb-6">
-          <figure className="w-[40%]">
+        <div className="lg:card card-side bg-base-100 shadow-xl mb-6 ">
+          <figure className="lg:w-[40%]">
             <img
               src="https://res.cloudinary.com/practicaldev/image/fetch/s--6VAU9Cus--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/i/gedn65jh83oew6hb1391.png"
               alt="Movie"
             />
           </figure>
-          <div className="card-body w-[60%]">
+          <div className="card-body lg:w-[60%]">
             <h2 className="card-title text-2xl">
               1. What are the different ways to manage a state in a React
               application?
@@ -24,14 +24,14 @@ const Blog = () => {
           </div>
         </div>
 
-        <div className="card card-side bg-base-100 shadow-xl mb-6">
-          <figure className="w-[40%]">
+        <div className="lg:card card-side bg-base-100 shadow-xl mb-6">
+          <figure className="lg:w-[40%]">
             <img
               src="https://www.cronj.com/blog/wp-content/uploads/inheritance.png.webp"
               alt="Movie"
             />
           </figure>
-          <div className="card-body w-[60%]">
+          <div className="card-body lg:w-[60%]">
             <h2 className="card-title text-2xl">
               2. How does prototypical inheritance work?
             </h2>
@@ -48,14 +48,14 @@ const Blog = () => {
           </div>
         </div>
 
-        <div className="card card-side bg-base-100 shadow-xl mb-6">
-          <figure className="w-[40%]">
+        <div className="lg:card card-side bg-base-100 shadow-xl mb-6">
+          <figure className="lg:w-[40%]">
             <img
               src="https://i.ytimg.com/vi/lj5nnGa_DIw/maxresdefault.jpg"
               alt="Movie"
             />
           </figure>
-          <div className="card-body w-[60%]">
+          <div className="card-body lg:w-[60%]">
             <h2 className="card-title text-2xl">
               3. What is a unit test? Why should we write unit tests?
             </h2>
@@ -80,14 +80,14 @@ const Blog = () => {
           </div>
         </div>
 
-        <div className="card card-side bg-base-100 shadow-xl mb-6">
-          <figure className="w-[40%]">
+        <div className="lg:card card-side bg-base-100 shadow-xl mb-6">
+          <figure className="lg:w-[40%]">
             <img
               src="https://presence.agency/wp-content/uploads/2020/07/1_lC1kj3IeXoE8Z3OCKJoWkw.jpeg"
               alt="Movie"
             />
           </figure>
-          <div className="card-body w-[60%]">
+          <div className="card-body lg:w-[60%]">
             <h2 className="card-title text-2xl">
               4. React vs. Angular vs. Vue?
             </h2>
