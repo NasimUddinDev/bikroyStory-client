@@ -24,6 +24,7 @@ const Signup = () => {
 
   if (token) {
     navigate(from, { replace: true });
+    window.location.reload();
   }
 
   const handelSignup = (data) => {
@@ -57,9 +58,6 @@ const Signup = () => {
             .then((result) => {
               if (result?.user) {
                 handelUserProfile(userName, userPhoto);
-                toast("User create Success");
-                setLoading(false);
-
                 // User Info send Database
                 fetch(
                   "https://bikroy-store-server-nasim0994.vercel.app/users",
@@ -75,6 +73,9 @@ const Signup = () => {
                   .then((data) => {
                     setNewUser(email);
                   });
+
+                toast("User create Success");
+                setLoading(false);
               }
             })
             .catch((error) => {
