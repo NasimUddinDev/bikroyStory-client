@@ -90,8 +90,8 @@ const Home = () => {
 
       {/* Add Your Post Esyly */}
       <section className="py-8 bg-white">
-        <div className="flex items-center border rounded-md h-96">
-          <div className="w-[50%] p-8">
+        <div className="flex flex-col-reverse lg:flex-row items-center border rounded-md lg:h-96 shadow-md">
+          <div className="lg:w-[50%] p-8 ">
             <h2 className="text-3xl font-semibold mb-6">
               Post your ad for free and easily!
             </h2>
@@ -112,11 +112,11 @@ const Home = () => {
               </li>
             </ul>
           </div>
-          <div className="w-[50%]">
+          <div className="lg:w-[50%]">
             <img
               src={FreeAdd}
               alt=""
-              className="h-96 w-full rounded-tr-md rounded-br-md"
+              className="lg:h-96 w-full lg:rounded-tr-md lg:rounded-br-md "
             />
           </div>
         </div>
