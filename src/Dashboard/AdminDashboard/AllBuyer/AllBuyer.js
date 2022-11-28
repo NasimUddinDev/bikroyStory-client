@@ -13,18 +13,21 @@ const AllBuyer = () => {
   } = useQuery({
     queryKey: ["users", userRole],
     queryFn: () =>
-      fetch(`http://localhost:5000/users?role=${userRole}`, {
-        headers: {
-          authorization: `bearer ${localStorage.getItem("accessToken")}`,
-        },
-      }).then((res) => res.json()),
+      fetch(
+        `https://bikroy-store-server-nasim0994.vercel.app/users?role=${userRole}`,
+        {
+          headers: {
+            authorization: `bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      ).then((res) => res.json()),
   });
 
   // delete Buyer
   const handelUserDelete = (id) => {
     const confirm = window.confirm(`Are you sure delete this user`);
     if (confirm) {
-      fetch(`http://localhost:5000/users/${id}`, {
+      fetch(`https://bikroy-store-server-nasim0994.vercel.app/users/${id}`, {
         method: "DELETE",
         headers: {
           authorization: `bearer ${localStorage.getItem("accessToken")}`,

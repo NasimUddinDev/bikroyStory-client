@@ -16,7 +16,7 @@ const Home = () => {
   const { data: categorys = [], isLoading } = useQuery({
     queryKey: ["categorys"],
     queryFn: () =>
-      fetch("http://localhost:5000/categorys", {
+      fetch("https://bikroy-store-server-nasim0994.vercel.app/categorys", {
         headers: {
           authorization: `bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -26,7 +26,7 @@ const Home = () => {
   const { data: advertised = [] } = useQuery({
     queryKey: ["advertised"],
     queryFn: () =>
-      fetch(`http://localhost:5000/advertised`, {
+      fetch(`https://bikroy-store-server-nasim0994.vercel.app/advertised`, {
         headers: {
           authorization: `bearer ${localStorage.getItem("accessToken")}`,
         },

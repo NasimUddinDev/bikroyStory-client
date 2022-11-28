@@ -15,9 +15,9 @@ const AddProduct = () => {
   const { data: databaseUser = {}, isLoading } = useQuery({
     queryKey: ["user", user?.email],
     queryFn: () =>
-      fetch(`http://localhost:5000/user?email=${user?.email}`).then((res) =>
-        res.json()
-      ),
+      fetch(
+        `https://bikroy-store-server-nasim0994.vercel.app/user?email=${user?.email}`
+      ).then((res) => res.json()),
   });
 
   const now = new Date();
@@ -92,7 +92,7 @@ const AddProduct = () => {
             sellerVerify: databaseUser?.verify,
           };
 
-          fetch("http://localhost:5000/products", {
+          fetch("https://bikroy-store-server-nasim0994.vercel.app/products", {
             method: "POST",
             headers: {
               "content-type": "application/json",

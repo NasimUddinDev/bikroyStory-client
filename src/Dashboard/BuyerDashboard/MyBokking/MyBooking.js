@@ -17,7 +17,7 @@ const MyBooking = () => {
     queryKey: ["bookings", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/bookings?email=${user?.email}`,
+        `https://bikroy-store-server-nasim0994.vercel.app/bookings?email=${user?.email}`,
         {
           headers: {
             authorization: `bearer ${localStorage.getItem("accessToken")}`,
@@ -32,7 +32,7 @@ const MyBooking = () => {
   const handelBookingDelete = (id) => {
     const confirm = window.confirm(`Are you sure delete this user`);
     if (confirm) {
-      fetch(`http://localhost:5000/bookings/${id}`, {
+      fetch(`https://bikroy-store-server-nasim0994.vercel.app/bookings/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())

@@ -22,7 +22,7 @@ const Category = () => {
   const { data: categorys = [], isLoading } = useQuery({
     queryKey: ["categorys"],
     queryFn: () =>
-      fetch("http://localhost:5000/categorys", {
+      fetch("https://bikroy-store-server-nasim0994.vercel.app/categorys", {
         headers: {
           authorization: `bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -31,11 +31,14 @@ const Category = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/products?category=${name}`, {
-        headers: {
-          authorization: `bearer ${localStorage.getItem("accessToken")}`,
-        },
-      })
+      .get(
+        `https://bikroy-store-server-nasim0994.vercel.app/products?category=${name}`,
+        {
+          headers: {
+            authorization: `bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
       .then((res) => {
         const availableProducts = res.data.filter(
           (product) => product.available !== "soled"
@@ -47,7 +50,7 @@ const Category = () => {
 
   // useEffect(() => {
   //   fetch(
-  //     `http://localhost:5000/products?category=${name}`,
+  //     `https://bikroy-store-server-nasim0994.vercel.app/products?category=${name}`,
   //     {
   //       headers: {
   //         authorization: `bearer ${localStorage.getItem("accessToken")}`,

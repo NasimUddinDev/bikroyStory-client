@@ -12,7 +12,7 @@ const AllUser = () => {
   } = useQuery({
     queryKey: ["users"],
     queryFn: () =>
-      fetch(`http://localhost:5000/users`, {
+      fetch(`https://bikroy-store-server-nasim0994.vercel.app/users`, {
         headers: {
           authorization: `bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -22,8 +22,11 @@ const AllUser = () => {
   const handelUserDelete = (id) => {
     const confirm = window.confirm(`Are you sure delete this user`);
     if (confirm) {
-      fetch(`http://localhost:5000/users/${id}`, {
+      fetch(`https://bikroy-store-server-nasim0994.vercel.app/users/${id}`, {
         method: "DELETE",
+        headers: {
+          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        },
       })
         .then((res) => res.json())
         .then((data) => {

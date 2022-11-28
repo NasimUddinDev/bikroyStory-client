@@ -25,13 +25,17 @@ const Product = ({ product, setProduct }) => {
   const handelReport = (id) => {
     const confirm = window.confirm("Are You sure Report this Product");
     if (confirm) {
-      fetch(`http://localhost:5000/products/report/${id}`, {
-        method: "PUT",
-      })
+      fetch(
+        `https://bikroy-store-server-nasim0994.vercel.app/products/report/${id}`,
+        {
+          method: "PUT",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
-          toast("Report Success");
+          if (data.acknowledged) {
+            toast("Report Success");
+          }
         });
     }
   };

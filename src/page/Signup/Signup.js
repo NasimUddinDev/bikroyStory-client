@@ -61,13 +61,16 @@ const Signup = () => {
                 setLoading(false);
 
                 // User Info send Database
-                fetch("http://localhost:5000/users", {
-                  method: "POST",
-                  headers: {
-                    "content-type": "application/json",
-                  },
-                  body: JSON.stringify(userInfo),
-                })
+                fetch(
+                  "https://bikroy-store-server-nasim0994.vercel.app/users",
+                  {
+                    method: "POST",
+                    headers: {
+                      "content-type": "application/json",
+                    },
+                    body: JSON.stringify(userInfo),
+                  }
+                )
                   .then((res) => res.json())
                   .then((data) => {
                     setNewUser(email);
@@ -116,7 +119,7 @@ const Signup = () => {
         if (result?.user) {
           setMessage();
           // User Info send Database
-          fetch("http://localhost:5000/users", {
+          fetch("https://bikroy-store-server-nasim0994.vercel.app/users", {
             method: "POST",
             headers: {
               "content-type": "application/json",

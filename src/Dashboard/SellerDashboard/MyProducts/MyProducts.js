@@ -15,19 +15,25 @@ const MyProducts = () => {
   } = useQuery({
     queryKey: ["userProducts", user?.email],
     queryFn: () =>
-      fetch(`http://localhost:5000/userProducts?email=${user?.email}`, {
-        headers: {
-          authorization: `bearer ${localStorage.getItem("accessToken")}`,
-        },
-      }).then((res) => res.json()),
+      fetch(
+        `https://bikroy-store-server-nasim0994.vercel.app/userProducts?email=${user?.email}`,
+        {
+          headers: {
+            authorization: `bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      ).then((res) => res.json()),
   });
 
   // Delete a Product
   const handelProductDelete = (id) => {
     const confirm = window.confirm(`Are you sure Delete this Product`);
     if (confirm) {
-      fetch(`http://localhost:5000/products/${id}`, {
+      fetch(`https://bikroy-store-server-nasim0994.vercel.app/products/${id}`, {
         method: "DELETE",
+        headers: {
+          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        },
       })
         .then((res) => res.json())
         .then((data) => {
@@ -43,7 +49,7 @@ const MyProducts = () => {
   const handelAdvertise = (id) => {
     const confirm = window.confirm(`Are you sure Advertise this Product`);
     if (confirm) {
-      fetch(`http://localhost:5000/products/${id}`, {
+      fetch(`https://bikroy-store-server-nasim0994.vercel.app/products/${id}`, {
         method: "PUT",
       })
         .then((res) => res.json())

@@ -5,9 +5,11 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   const [categorys, setCategorys] = useState([]);
   useEffect(() => {
-    axios.get(`http://localhost:5000/categorys`).then((res) => {
-      setCategorys(res.data);
-    });
+    axios
+      .get(`https://bikroy-store-server-nasim0994.vercel.app/categorys`)
+      .then((res) => {
+        setCategorys(res.data);
+      });
   }, []);
 
   return (
@@ -22,7 +24,7 @@ const Footer = () => {
 
           <div>
             {categorys.map((category) => (
-              <li className="link link-hover list-none">
+              <li key={category._id} className="link link-hover list-none">
                 <Link to={`categorys/${category._id}`}>{category.name}</Link>
               </li>
             ))}

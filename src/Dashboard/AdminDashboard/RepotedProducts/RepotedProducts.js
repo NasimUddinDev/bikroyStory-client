@@ -12,20 +12,29 @@ const RepotedProducts = () => {
   } = useQuery({
     queryKey: ["reported"],
     queryFn: () =>
-      fetch(`http://localhost:5000/products/report?report=reported`, {
-        headers: {
-          authorization: `bearer ${localStorage.getItem("accessToken")}`,
-        },
-      }).then((res) => res.json()),
+      fetch(
+        `https://bikroy-store-server-nasim0994.vercel.app/products/report?report=reported`,
+        {
+          headers: {
+            authorization: `bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      ).then((res) => res.json()),
   });
 
   // Delete a Product
   const handelProductDelete = (id) => {
     const confirm = window.confirm(`Are you sure Delete this Product`);
     if (confirm) {
-      fetch(`http://localhost:5000/products/${id}`, {
-        method: "DELETE",
-      })
+      fetch(
+        `https://bikroy-store-server-nasim0994.vercel.app/products/report/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            authorization: `bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           if (data.deletedCount > 0) {
