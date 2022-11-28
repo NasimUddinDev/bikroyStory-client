@@ -8,6 +8,10 @@
 
 ### Live Project: https://bikroystore-f0230.firebaseapp.com/ / https://bikroystore-f0230.web.app/
 
+### adminEmail: nasim@gmail.com
+
+### adminPassword: 123456
+
 ### Project Details:
 
 - This is MERN-Stack Responsive Project.
