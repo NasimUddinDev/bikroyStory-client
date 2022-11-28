@@ -1,12 +1,13 @@
 import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import Spinner from "../../components/Spinner/Spinner";
+import ButtonSpinner from "../../components/ButtonSpinner/ButtonSpinner";
 import { AuthContext } from "../../contextApi/AuthProvider";
 
 const Login = () => {
   const { login, googleSignup } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -27,13 +28,15 @@ const Login = () => {
         if (result.user) {
           getLoginUserToekn(result.user.email);
           toast("Login Success");
-          form.reset();
-          navigate(from, { replace: true });
           setLoading(false);
+          form.reset();
+          // navigate(from, { replace: true });
+          setMessage("");
         }
       })
       .catch((error) => {
         console.log(error);
+        setMessage(error.message);
         setLoading(false);
       });
   };
@@ -45,7 +48,6 @@ const Login = () => {
         const userName = result.user.displayName;
         const email = result.user.email;
         const userPhoto = result.user.photoURL;
-
         const userInfo = {
           userName,
           userPhoto,
@@ -55,7 +57,7 @@ const Login = () => {
 
         if (result?.user) {
           // User Info send Database
-          fetch("https://bikroy-store-server-nasim0994.vercel.app/users", {
+          fetch("http://localhost:5000/users", {
             method: "POST",
             headers: {
               "content-type": "application/json",
@@ -65,26 +67,27 @@ const Login = () => {
             .then((res) => res.json())
             .then((data) => {
               getLoginUserToekn(result.user.email);
-              navigate(from, { replace: true });
               toast("LogIn Success");
+              // navigate(from, { replace: true });
             })
             .catch((error) => console.log(error));
         }
       })
       .catch((error) => {
         console.log(error);
+        setMessage(error.message);
       });
   };
 
   // GET token
   const getLoginUserToekn = (email) => {
-    fetch(`https://bikroy-store-server-nasim0994.vercel.app/jwt?email=${email}`)
+    fetch(`http://localhost:5000/jwt?email=${email}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.accessToken) {
           localStorage.setItem("accessToken", data.accessToken);
-          // navigate(from, { replace: true });
         }
+        navigate(from, { replace: true });
       });
   };
 
@@ -124,9 +127,12 @@ const Login = () => {
                 </a>
               </label>
             </div>
+
+            <p className="text-red-500">{message}</p>
+
             <div className="form-control mt-3">
               <button type="submit" className="btn">
-                {loading ? <Spinner /> : "Log In"}
+                {loading ? <ButtonSpinner /> : "Log In"}
               </button>
             </div>
           </form>

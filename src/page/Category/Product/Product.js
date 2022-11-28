@@ -25,12 +25,9 @@ const Product = ({ product, setProduct }) => {
   const handelReport = (id) => {
     const confirm = window.confirm("Are You sure Report this Product");
     if (confirm) {
-      fetch(
-        `https://bikroy-store-server-nasim0994.vercel.app/products/report/${id}`,
-        {
-          method: "PUT",
-        }
-      )
+      fetch(`http://localhost:5000/products/report/${id}`, {
+        method: "PUT",
+      })
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
@@ -48,45 +45,48 @@ const Product = ({ product, setProduct }) => {
       <div className="lg:w-[80%] md:w-[65%] mx-auto ">
         <div>
           <div className="md:flex justify-between">
-            <div className="md:w-[65%]">
-              <h2 className="card-title text-2xl text-teal-600">
-                {productName}
-              </h2>
+            <div className="md:w-[73%]">
               <small className="text-gray-600">
                 Post on {time}, {date}
               </small>
-              <p className="flex items-center gap-1">
-                <span className="text-gray-500">For sale by</span>{" "}
-                {sellerVerify && (
-                  <span className="text-blue-500 text-[18px]">
-                    <MdVerified />
-                  </span>
-                )}{" "}
-                {seller}
-              </p>
-              <p className="flex items-center gap-1">
-                {" "}
-                <span className="text-gray-500">
-                  <BsFillTelephoneFill />
-                </span>{" "}
-                {number}
-              </p>
             </div>
 
-            <div className="md:w-[35%]">
+            <div className="md:w-[27%]">
               <p>
                 <span className="text-gray-500">Brand:</span> {category}
               </p>
-              <h3 className="flex items-center">
-                <span className="text-gray-500 text-xl">
-                  <MdLocationOn />
-                </span>
-                <p> {location}</p>
-              </h3>
             </div>
           </div>
 
-          <div className="md:flex items-center justify-between mt-2">
+          {/* Seller info */}
+          <div>
+            <h2 className="card-title text-2xl text-teal-600">{productName}</h2>
+            <p className="flex items-center gap-1">
+              <span className="text-gray-500">For sale by</span>
+              {sellerVerify && (
+                <span className="text-blue-500 text-[18px]">
+                  <MdVerified />
+                </span>
+              )}{" "}
+              {seller}
+            </p>
+            <p className="flex items-center gap-1">
+              <span className="text-gray-500">
+                <BsFillTelephoneFill />
+              </span>{" "}
+              {number}
+            </p>
+
+            <h3 className="flex items-center">
+              <span className="text-gray-500 text-xl">
+                <MdLocationOn />
+              </span>
+              <p> {location}</p>
+            </h3>
+          </div>
+
+          {/* Product info */}
+          <div className="md:flex items-center justify-between">
             <div>
               <h2 className="text-lg text-teal-600 font-semibold">
                 <span className="text-gray-500">Price</span> {sellPrice} TK
@@ -105,6 +105,11 @@ const Product = ({ product, setProduct }) => {
                 <span className="text-gray-500">Condition:</span> {condition}
               </p>
             </div>
+          </div>
+
+          <div>
+            <span className="text-gray-500">Description: </span>
+            <small>{description}</small>
           </div>
         </div>
 

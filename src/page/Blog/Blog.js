@@ -4,6 +4,8 @@ const Blog = () => {
   return (
     <div className="bg-base-300">
       <div className="w-[80%] mx-auto py-5 ">
+
+        
         <div className="lg:card card-side bg-base-100 shadow-xl mb-6 ">
           <figure className="lg:w-[40%]">
             <img

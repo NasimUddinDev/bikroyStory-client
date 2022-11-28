@@ -4,15 +4,20 @@ import { AuthContext } from "../../../contextApi/AuthProvider";
 import { AiFillDelete } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import Spinner from "../../../components/Spinner/Spinner";
 
 const MyBooking = () => {
   const { user } = useContext(AuthContext);
 
-  const { data: bookings = [], refetch } = useQuery({
+  const {
+    data: bookings = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["bookings", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `https://bikroy-store-server-nasim0994.vercel.app/bookings?email=${user?.email}`,
+        `http://localhost:5000/bookings?email=${user?.email}`,
         {
           headers: {
             authorization: `bearer ${localStorage.getItem("accessToken")}`,
@@ -27,7 +32,7 @@ const MyBooking = () => {
   const handelBookingDelete = (id) => {
     const confirm = window.confirm(`Are you sure delete this user`);
     if (confirm) {
-      fetch(`https://bikroy-store-server-nasim0994.vercel.app/bookings/${id}`, {
+      fetch(`http://localhost:5000/bookings/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
@@ -39,6 +44,10 @@ const MyBooking = () => {
         });
     }
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="overflow-x-auto">

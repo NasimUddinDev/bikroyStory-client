@@ -2,13 +2,14 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import ButtonSpinner from "../../components/ButtonSpinner/ButtonSpinner";
 import { AuthContext } from "../../contextApi/AuthProvider";
 import useToken from "../../Hooks/useToken";
-import Spinner from "./../../components/Spinner/Spinner";
 
 const Signup = () => {
   const { craeteUser, updateUser, googleSignup } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -55,21 +56,18 @@ const Signup = () => {
           craeteUser(email, password)
             .then((result) => {
               if (result?.user) {
-                toast("User create Success");
                 handelUserProfile(userName, userPhoto);
+                toast("User create Success");
                 setLoading(false);
 
                 // User Info send Database
-                fetch(
-                  "https://bikroy-store-server-nasim0994.vercel.app/users",
-                  {
-                    method: "POST",
-                    headers: {
-                      "content-type": "application/json",
-                    },
-                    body: JSON.stringify(userInfo),
-                  }
-                )
+                fetch("http://localhost:5000/users", {
+                  method: "POST",
+                  headers: {
+                    "content-type": "application/json",
+                  },
+                  body: JSON.stringify(userInfo),
+                })
                   .then((res) => res.json())
                   .then((data) => {
                     setNewUser(email);
@@ -78,6 +76,7 @@ const Signup = () => {
             })
             .catch((error) => {
               console.log(error);
+              setMessage(error.message);
               setLoading(false);
             });
         }
@@ -95,6 +94,7 @@ const Signup = () => {
       .then((result) => {})
       .catch((error) => {
         console.error(error);
+        setMessage(error.message);
       });
   };
 
@@ -114,8 +114,9 @@ const Signup = () => {
         };
 
         if (result?.user) {
+          setMessage();
           // User Info send Database
-          fetch("https://bikroy-store-server-nasim0994.vercel.app/users", {
+          fetch("http://localhost:5000/users", {
             method: "POST",
             headers: {
               "content-type": "application/json",
@@ -127,11 +128,15 @@ const Signup = () => {
               setNewUser(result.user.email);
               toast("LogIn Success");
             })
-            .catch((error) => console.log(error));
+            .catch((error) => {
+              console.log(error);
+              setMessage(error.message);
+            });
         }
       })
       .catch((error) => {
         console.log(error);
+        setMessage(error.message);
       });
   };
 
@@ -209,8 +214,10 @@ const Signup = () => {
               </select>
             </div>
 
+            <p className="text-red-500">{message}</p>
+
             <button type="submit" className="btn">
-              {loading ? <Spinner /> : "Sign Up"}
+              {loading ? <ButtonSpinner /> : "Sign Up"}
             </button>
           </form>
 

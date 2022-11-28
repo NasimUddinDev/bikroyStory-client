@@ -16,7 +16,7 @@ const Home = () => {
   const { data: categorys = [], isLoading } = useQuery({
     queryKey: ["categorys"],
     queryFn: () =>
-      fetch("https://bikroy-store-server-nasim0994.vercel.app/categorys", {
+      fetch("http://localhost:5000/categorys", {
         headers: {
           authorization: `bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -26,7 +26,7 @@ const Home = () => {
   const { data: advertised = [] } = useQuery({
     queryKey: ["advertised"],
     queryFn: () =>
-      fetch(`https://bikroy-store-server-nasim0994.vercel.app/advertised`, {
+      fetch(`http://localhost:5000/advertised`, {
         headers: {
           authorization: `bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -42,8 +42,8 @@ const Home = () => {
 
       {/* Category  */}
       <section className="py-5 ">
-        {isLoading && <Spinner />}
         <h2 className="text-lg mb-4 font-semibold">Browse items by category</h2>
+        {isLoading && <Spinner />}
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-12 justify-center px-2">
           {categorys?.map((category) => (

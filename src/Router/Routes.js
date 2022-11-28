@@ -45,9 +45,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(
-            `https://bikroy-store-server-nasim0994.vercel.app/categorys/${params.id}`
-          ),
+          fetch(`http://localhost:5000/categorys/${params.id}`),
       },
       {
         path: "/login",
@@ -82,9 +80,7 @@ const router = createBrowserRouter([
         path: "/dashboard/payment/:id",
         element: <Payment></Payment>,
         loader: ({ params }) =>
-          fetch(
-            `https://bikroy-store-server-nasim0994.vercel.app/bookings/${params.id}`
-          ),
+          fetch(`http://localhost:5000/bookings/${params.id}`),
       },
       {
         path: "/dashboard/allusers",
@@ -125,8 +121,7 @@ const router = createBrowserRouter([
             <AddProduct></AddProduct>
           </SellerRoute>
         ),
-        loader: () =>
-          fetch("https://bikroy-store-server-nasim0994.vercel.app/categorys"),
+        loader: () => fetch("http://localhost:5000/categorys"),
       },
       {
         path: "/dashboard/myproducts",

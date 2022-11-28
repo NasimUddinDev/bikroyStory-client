@@ -18,20 +18,22 @@ const DashboardLayout = () => {
       <div className="drawer drawer-mobile gap-4 py-5 w-[80%] mx-auto ">
         <input id="dasboard-drawer" type="checkbox" className="drawer-toggle" />
 
-        <div className="drawer-content">
-          <label
-            htmlFor="dasboard-drawer"
-            className="lg:hidden btn btn-accent w-[180px]"
-          >
-            <div className="flex items-center text-white">
-              <p>
-                <GrMenu className="text-2xl" />
-              </p>
-              <p>Dashboard Menu</p>
-            </div>
-          </label>
+        <div className="drawer-content bg-gray-100">
+          <div className="bg-white">
+            <label
+              htmlFor="dasboard-drawer"
+              className="lg:hidden btn btn-accent w-[180px]"
+            >
+              <div className="flex items-center text-white">
+                <p>
+                  <GrMenu className="text-2xl" />
+                </p>
+                <p>Dashboard Menu</p>
+              </div>
+            </label>
+          </div>
 
-          <div className=" bg-gray-100 rounded-md md:px-4">
+          <div className="  rounded-md md:px-4">
             <Outlet></Outlet>
           </div>
         </div>

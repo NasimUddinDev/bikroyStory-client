@@ -1,22 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
+  const [categorys, setCategorys] = useState([]);
+  useEffect(() => {
+    axios.get(`http://localhost:5000/categorys`).then((res) => {
+      setCategorys(res.data);
+    });
+  }, []);
+
   return (
     <footer className="border-t border-teal-600 bg-base-200 text-base-content py-6">
       <div className="footer w-[80%] mx-auto">
         <div>
-          <span className="footer-title">Services</span>
-          <a className="link link-hover">Branding</a>
-          <a className="link link-hover">Design</a>
-          <a className="link link-hover">Marketing</a>
-          <a className="link link-hover">Advertisement</a>
+          <span className="footer-title text-xl">BikroyStore</span>
+          <p>The best place to buy and sell secondhand products.</p>
         </div>
         <div>
-          <span className="footer-title">Company</span>
-          <a className="link link-hover">About us</a>
-          <a className="link link-hover">Contact</a>
-          <a className="link link-hover">Jobs</a>
-          <a className="link link-hover">Press kit</a>
+          <span className="footer-title">Cagetory</span>
+
+          <div>
+            {categorys.map((category) => (
+              <li className="link link-hover list-none">
+                <Link to={`categorys/${category._id}`}>{category.name}</Link>
+              </li>
+            ))}
+          </div>
         </div>
         <div>
           <span className="footer-title">Social</span>

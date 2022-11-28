@@ -18,17 +18,14 @@ const CheckoutForm = ({ booking }) => {
   const { price, buyerEmail, buyerName, _id, ProductId } = booking;
 
   useEffect(() => {
-    fetch(
-      "https://bikroy-store-server-nasim0994.vercel.app/create-payment-intent",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+    fetch("http://localhost:5000/create-payment-intent", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
 
-        body: JSON.stringify({ price }),
-      }
-    )
+      body: JSON.stringify({ price }),
+    })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret));
   }, [price]);
@@ -87,7 +84,7 @@ const CheckoutForm = ({ booking }) => {
         transactionId: paymentIntent.id,
       };
 
-      fetch("https://bikroy-store-server-nasim0994.vercel.app/payments", {
+      fetch("http://localhost:5000/payments", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(paymentInfo),

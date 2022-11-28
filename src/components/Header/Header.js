@@ -6,6 +6,7 @@ import { AuthContext } from "../../contextApi/AuthProvider";
 
 const Header = () => {
   const { user, logout } = useContext(AuthContext);
+
   const menu = (
     <>
       <li>
@@ -19,14 +20,19 @@ const Header = () => {
       <li>
         <NavLink to="/blog">Blog</NavLink>
       </li>
-      <li>
+      <li className="flex lg:items-center gap-6">
         {user ? (
           <>
-            <NavLink to="/dashboard" className="mr-8">
-              Dashboard
-            </NavLink>
+            <NavLink to="/dashboard">Dashboard</NavLink>
             <button onClick={logout} className="btn btn-accent">
               Log Out
+            </button>
+            <button>
+              <img
+                src={user?.photoURL}
+                alt=""
+                className="w-[50px] h-[50px] rounded-full"
+              />
             </button>
           </>
         ) : (

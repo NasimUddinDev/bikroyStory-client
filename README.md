@@ -24,8 +24,6 @@
 
 * There is a private route that cannot be accessed unless log-in.
 
-* It is a responsive project.
-
 * Separate dashboards are created for buyer, seller, admin.
 
 * Seller can post his used products for sale.Can boost and delete Product.
