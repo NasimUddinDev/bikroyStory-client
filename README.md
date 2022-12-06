@@ -8,9 +8,9 @@
 
 ### Live Project: https://bikroystore-f0230.firebaseapp.com/ / https://bikroystore-f0230.web.app/
 
-### adminEmail: nasim@gmail.com
+<!-- ### adminEmail: nasim@gmail.com
 
-### adminPassword: 123456
+### adminPassword: 123456 -->
 
 ### Project Details:
 
