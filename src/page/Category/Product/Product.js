@@ -41,7 +41,10 @@ const Product = ({ product, setProduct }) => {
   };
 
   return (
-    <div className="border p-2 md:flex gap-2 mb-4 rounded-md shadow-md overflow-hidden">
+    <div
+      data-aos="zoom-in"
+      className="border p-2 md:flex gap-2 mb-4 rounded-md shadow-md overflow-hidden"
+    >
       <div className="w-[80%] md:w-[35%] mx-auto mb-4 md:mb-0">
         <img src={picture} alt="Shoes" className="w-full h-52" />
       </div>
